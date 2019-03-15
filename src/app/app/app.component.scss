@@ -1,0 +1,63 @@
+.app {
+  min-height: 100vh;
+
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color .3s;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
+  .logo {
+    height: 32px;
+    // background: rgba(255, 255, 255, .2);
+    margin: 16px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 20px;
+    color: #eee;
+  }
+  nz-sider {
+    position: relative;
+    .copyright {
+      position: absolute;
+      bottom: 0;
+      color: #aaa;
+      margin: 10%;
+      text-align: center;
+      width: 80%;
+      font-size: 12px;
+      background: #000;
+      padding: 5px 0;
+      font-size: 12px;
+    }
+  }
+  nz-header {
+    background: #fff;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .user {
+      margin-right: 20px;
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #eee;
+      }
+    }
+  }
+
+  nz-content {
+    margin:0 16px;
+    max-height: calc(100vh - 64px);
+    overflow-y: scroll;
+  }
+}

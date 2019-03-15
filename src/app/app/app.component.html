@@ -1,0 +1,60 @@
+<nz-layout class="app">
+  <!-- left -->
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+    <div class="logo">
+      <p *ngIf="!isCollapsed; else ForShort">
+        Project-Hub Admin
+      </p>
+      <ng-template #ForShort>PH</ng-template>
+    </div>
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu *ngFor="let item of sidebarNav">
+        <span title>
+          <i nz-icon [type]="item.icon"></i>
+          <span class="nav-text">{{item.title}}</span>
+        </span>
+        <ul>
+          <li nz-menu-item *ngFor="let subItem of item.sub" [routerLink]="[subItem.router]">{{subItem.title}}</li>
+        </ul>
+      </li>
+    </ul>
+    <p *ngIf="!isCollapsed" class="copyright">Project-Hub © 2019<br>Dev. By Jonson</p>
+  </nz-sider>
+
+  <!-- right -->
+  <nz-layout>
+
+    <!-- header -->
+    <nz-header>
+      <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      <nz-dropdown [nzPlacement]="'bottomRight'" class="user">
+        <img nz-dropdown src="../../assets/images/logo.jpg">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item>
+            <a>userName</a>
+          </li>
+          <li nz-menu-divider></li>
+          <li nz-menu-item>
+            <a>退出</a>
+          </li>
+        </ul>
+      </nz-dropdown>
+    </nz-header>
+
+    <!-- container -->
+    <nz-content >
+      <nz-breadcrumb style="margin:16px 0;">
+        <nz-breadcrumb-item>User</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <div style="padding:24px; background: #fff; min-height: 360px;">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+
+  </nz-layout>
+</nz-layout>
+
+<ng-template #trigger>
+  <i nz-icon type="up"></i>
+</ng-template>
