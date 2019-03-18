@@ -1,4 +1,5 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '_@angular_router@7.2.9@@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,38 +12,52 @@ export class AppComponent {
   sidebarNav = [
     {
       icon: 'user',
-      title: 'User',
+      title: '用户',
       sub: [
         {
-          title: 'user',
+          icon: 'user',
+          title: '用户',
           router: 'user',
         },
       ]
     },
     {
       icon: 'project',
-      title: 'Project',
+      title: '项目',
       sub: [
         {
-          title: 'project',
+          icon: 'project',
+          title: '项目',
           router: 'project',
         },
       ]
     },
     {
       icon: 'setting',
-      title: 'Setting',
+      title: '设置',
       sub: [
         {
-          title: 'skill',
+          icon: 'ordered-list',
+          title: '技能 Skill',
           router: 'skill',
         },
       ]
     },
-  ]
+  ];
+  breadcrumbs: string[];
 
   @ViewChild('trigger') customTrigger: TemplateRef<void>;
   
+  constructor(
+    private router: Router,
+  ) {}
+  
+  ngAfterContentChecked(): void {
+    let arr = this.router.url.split('/')
+    arr.shift()
+    this.breadcrumbs = arr
+    // console.log('arr: ', arr);
+  }
 
   changeTrigger(): void {
     this.triggerTemplate = this.customTrigger;

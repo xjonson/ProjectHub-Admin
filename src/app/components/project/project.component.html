@@ -1,3 +1,97 @@
-<p>
-  project works!
-</p>
+<nz-card [nzBordered]="false">
+  <nz-table #table [nzData]="projectTable" [nzPageSize]="20">
+    <thead>
+      <tr>
+        <th nzShowExpand></th>
+        <th>ID</th>
+        <th>项目名称</th>
+        <th>项目发布时间</th>
+        <th>需求者</th>
+        <th>开发者</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-item [ngForOf]="table.data">
+        <tr>
+          <td nzShowExpand [(nzExpand)]="mapOfExpandData[item.id]"></td>
+          <td>{{item.id}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.create_time | date: 'yyyy-MM-dd hh:mm:ss'}}</td>
+          <td>
+            <nz-avatar nzIcon="user" nzSrc="{{item.demand_user.profile.avatar}}"></nz-avatar>
+            {{item.demand_user.profile.name}}
+          </td>
+          <td>
+            <ng-template *ngIf="item.dev_user">
+              <nz-avatar nzIcon="user" nzSrc="{{item.dev_user.profile.avatar}}"></nz-avatar>
+              {{item.dev_user.profile.name}}
+            </ng-template>
+          </td>
+          <td>
+            <nz-badge nzStatus="{{item.status | projectColor}}"></nz-badge>
+            {{item.status | projectStatus}}
+          </td>
+          <td>
+            <span *ngIf="item.role !== 1">
+              <span [ngSwitch]="item.audit">
+                <nz-dropdown *ngSwitchCase="0">
+                  <a nz-dropdown>
+                    审核 <i nz-icon type="down"></i>
+                  </a>
+                  <ul nz-menu nzSelectable>
+                      <li nz-menu-item (click)="auditProject(item, 1)">审核通过</li>
+                      <li nz-menu-item (click)="auditProject(item, 2)">审核不通过</li>
+                  </ul>
+                </nz-dropdown>
+                <p *ngSwitchCase="1">
+                  <a>审核通过</a>
+                </p>
+                <p *ngSwitchCase="2">
+                  <a href="">审核不通过</a>
+                </p>
+              </span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <!-- <a>拉入黑名单</a> -->
+            </span>
+          </td>
+        </tr>
+        <tr [nzExpand]="mapOfExpandData[item.id]">
+          <td></td>
+          <td colspan="6">
+            <h4>项目详情</h4>
+            <p>{{item.desc}}</p>
+            <h4>项目预算</h4>
+            <p>￥{{item.price | number}}</p>
+            <h4>项目发布时间</h4>
+            <p>{{item.create_time | date: 'yyyy-MM-dd hh:mm:ss'}}</p>
+            <div class="d-flex justify-content-between align-items-top">
+              <div class="flex-1">
+                <h4>需求者</h4>
+                <ul>
+                  <li>id： {{item.demand_user.id}}</li>
+                  <li>email： {{item.demand_user.email}}</li>
+                  <li>name： {{item.demand_user.profile.name}}</li>
+                  <li>phone： {{item.demand_user.profile.phone}}</li>
+                  <li>desc： {{item.demand_user.profile.desc}}</li>
+                </ul>
+              </div>
+              <div class="flex-1">
+                <h4>开发者</h4>
+                <ul *ngIf="item.dev_user">
+                  <li>id： {{item.dev_user.id}}</li>
+                  <li>email： {{item.dev_user.email}}</li>
+                  <li>name： {{item.dev_user.profile.name}}</li>
+                  <li>phone： {{item.dev_user.profile.phone}}</li>
+                  <li>desc： {{item.dev_user.profile.desc}}</li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+    </tbody>
+  </nz-table>
+</nz-card>

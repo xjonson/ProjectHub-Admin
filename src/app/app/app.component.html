@@ -1,12 +1,14 @@
 <nz-layout class="app">
   <!-- left -->
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
-    <div class="logo">
+    <!-- logo -->
+    <div class="logo" routerLink="dashboard">
       <p *ngIf="!isCollapsed; else ForShort">
         Project-Hub Admin
       </p>
       <ng-template #ForShort>PH</ng-template>
     </div>
+    <!-- menu -->
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu *ngFor="let item of sidebarNav">
         <span title>
@@ -14,11 +16,13 @@
           <span class="nav-text">{{item.title}}</span>
         </span>
         <ul>
-          <li nz-menu-item *ngFor="let subItem of item.sub" [routerLink]="[subItem.router]">{{subItem.title}}</li>
+          <li nz-menu-item *ngFor="let subItem of item.sub" [routerLink]="[subItem.router]">
+            <i nz-icon [type]="subItem.icon"></i>
+            {{subItem.title}}
+          </li>
         </ul>
       </li>
     </ul>
-    <p *ngIf="!isCollapsed" class="copyright">Project-Hub © 2019<br>Dev. By Jonson</p>
   </nz-sider>
 
   <!-- right -->
@@ -27,6 +31,9 @@
     <!-- header -->
     <nz-header>
       <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      <nz-breadcrumb class="flex-1">
+        <nz-breadcrumb-item *ngFor="let item of breadcrumbs">{{item | titlecase}}</nz-breadcrumb-item>
+      </nz-breadcrumb>
       <nz-dropdown [nzPlacement]="'bottomRight'" class="user">
         <img nz-dropdown src="../../assets/images/logo.jpg">
         <ul nz-menu nzSelectable>
@@ -42,13 +49,14 @@
     </nz-header>
 
     <!-- container -->
-    <nz-content >
-      <nz-breadcrumb style="margin:16px 0;">
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div style="padding:24px; background: #fff; min-height: 360px;">
-        <router-outlet></router-outlet>
+    <nz-content>
+      <router-outlet></router-outlet>
+      <!-- copyright -->
+      <div class="copyright">
+        <a href="https://github.com/xjonson/ProjectHub-Admin" target="_blank">
+          <i nz-icon type="github" theme="outline"></i>
+        </a>
+        <p class="mt-2">Project-Hub © 2019 Dev. By Jonson</p>
       </div>
     </nz-content>
 
