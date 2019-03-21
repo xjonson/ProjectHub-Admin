@@ -29,7 +29,14 @@ export class ProjectComponent implements OnInit {
   }
 
   // 审核
-  auditProject(project: Project, status: 1 | 2): void {
-
+  auditProject(project: Project, audit: 1 | 2): void {
+    const newProject = {
+      audit
+    }
+    this.projectSrv.updateProject(project.id, newProject).subscribe(
+      () => {
+        this.handleGetProjects()
+      }
+    )
   }
 }

@@ -36,7 +36,13 @@
           <td>
             <span *ngIf="item.role !== 1">
               <span [ngSwitch]="item.audit">
-                <nz-dropdown *ngSwitchCase="0">
+                <p *ngSwitchCase="1">
+                  <a>审核通过</a>
+                </p>
+                <p *ngSwitchCase="2">
+                  <a href="">审核不通过</a>
+                </p>
+                <nz-dropdown *ngSwitchDefault>
                   <a nz-dropdown>
                     审核 <i nz-icon type="down"></i>
                   </a>
@@ -45,15 +51,8 @@
                       <li nz-menu-item (click)="auditProject(item, 2)">审核不通过</li>
                   </ul>
                 </nz-dropdown>
-                <p *ngSwitchCase="1">
-                  <a>审核通过</a>
-                </p>
-                <p *ngSwitchCase="2">
-                  <a href="">审核不通过</a>
-                </p>
               </span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <!-- <a>拉入黑名单</a> -->
+              <!-- <nz-divider nzType="vertical"></nz-divider> -->
             </span>
           </td>
         </tr>
