@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, enableProdMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { AppComponent } from './app/app.component';
 
@@ -44,6 +44,7 @@ registerLocaleData(zh);
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     AppRoutingModule,
     /** 导入 ng-zorro-antd 模块 **/
     NgZorroAntdModule,
