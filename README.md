@@ -6,9 +6,9 @@
 
 ## 介绍
 
+- 使用了 [ng-zorro](https://ng.ant.design/) 组件库、[viser-ng](https://www.yuque.com/rs385i) 可视化图表，参照了 [ng-alain](https://github.com/ng-alain/ng-alain)的一些设计。
 - 当前使用fake api，将来会使用node代替
-- 使用了 ng-zorro 组件库、viser-ng 可视化图标。
-- 管理员可进行登录，登录后可看到近2周的页面访问量、用户量、项目量的统计
+- 管理员可进行登录，登录后可在dashboard页面看到近2周的页面访问量、用户量、项目量的统计
 - 可对用户进行查看信息、拉黑的处理
 - 可对项目进行查看信息、审核发布的处理
 - 设置平台的静态数据如 技能列表 等
