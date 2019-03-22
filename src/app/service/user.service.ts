@@ -31,6 +31,10 @@ export class UserService {
       )
     )
   }
+  
+  setUserInfo(user: User) {
+    this.userInfo = user
+  }
 
   // 更新信息
   updateUserInfo(id: string, data: Partial<User>) {

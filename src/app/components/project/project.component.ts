@@ -12,8 +12,8 @@ import { User } from 'src/app/models/User';
 })
 export class ProjectComponent implements OnInit {
   projectTable: Project[] = [];
-  mapOfExpandData: { [ key: string ]: boolean } = {};
- 
+  mapOfExpandData: { [key: string]: boolean } = {};
+
 
   constructor(
     private projectSrv: ProjectService,
@@ -38,6 +38,7 @@ export class ProjectComponent implements OnInit {
     const newProject = {
       audit
     }
+    
     this.projectSrv.updateProject(project.id, newProject).subscribe(
       () => {
         this.handleGetProjects()
@@ -46,20 +47,21 @@ export class ProjectComponent implements OnInit {
         // 给需求者推送消息
         this.userSrv.getUserInfo(demand_user_id).subscribe(
           (demander: User) => {
-            
+
             demander.msgs = [
               ...demander.msgs,
               {
                 id: demander.msgs.length + '1',
                 project_id: project.id,
                 from_user: this.userSrv.userInfo,
-                content: `您的【${project.title}】项目审核不通过`,
+                content: `您的【${project.title}】项目审核${audit == 1 ? '通过' : '不通过'}`,
                 checked: false,
                 create_time: new Date() + '',
                 isAction: true,
                 action: 0,
               }
             ]
+            console.log('demander: ', demander);
             this.userSrv.updateUserInfo(demander.id, demander).subscribe(
               () => {
                 this.nzMessage.create('success', `推送消息成功！`);

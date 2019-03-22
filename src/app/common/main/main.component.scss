@@ -1,0 +1,69 @@
+.app {
+  min-height: 100vh;
+
+  .trigger {
+    font-size: 18px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color .3s;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
+  .logo {
+    cursor: pointer;
+    height: 32px;
+    // background: rgba(255, 255, 255, .2);
+    margin: 16px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 20px;
+    color: #eee;
+  }
+
+  nz-sider {
+    position: relative;
+
+  }
+
+  nz-header {
+    background: #fff;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    z-index: 99;
+
+    .user {
+      margin-right: 20px;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #eee;
+      }
+    }
+  }
+
+  nz-content {
+    max-height: calc(100vh - 64px);
+    overflow-y: scroll;
+    padding: 24px;
+    // background: #fff;
+    min-height: 360px;
+  }
+
+  .copyright {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+
+    a {
+      color: unset;
+    }
+  }
+}

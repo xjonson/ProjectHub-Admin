@@ -26,11 +26,6 @@ export class CookieService {
 
   // 删除cookie
   delCookie(name) {
-    let exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    let cval = this.getCookie(name);
-    if (cval != null) {
-      document.cookie = name + "=" + cval + ";expires=" + exp.toUTCString();
-    }
+    document.cookie = name + '=;  expires=Thu, 01 Jan 1970 00:00:01 GMT;'
   }
 }

@@ -1,0 +1,71 @@
+<nz-layout class="app">
+  <!-- left -->
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+    <!-- logo -->
+    <div class="logo" routerLink="dashboard">
+      <p *ngIf="!isCollapsed; else ForShort">
+        Project-Hub Admin
+      </p>
+      <ng-template #ForShort>PH</ng-template>
+    </div>
+    <!-- menu -->
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu *ngFor="let item of sidebarNav">
+        <span title>
+          <i nz-icon [type]="item.icon"></i>
+          <span class="nav-text">{{item.title}}</span>
+        </span>
+        <ul>
+          <li nz-menu-item *ngFor="let subItem of item.sub" [routerLink]="[subItem.router]">
+            <i nz-icon [type]="subItem.icon"></i>
+            {{subItem.title}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <!-- right -->
+  <nz-layout>
+
+    <!-- header -->
+    <nz-header>
+      <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      <nz-breadcrumb class="flex-1">
+        <nz-breadcrumb-item *ngFor="let item of breadcrumbs">{{item | titlecase}}</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <nz-dropdown [nzPlacement]="'bottomRight'" class="user">
+        <div nz-dropdown>
+          <nz-avatar nzIcon="user" nzSrc="{{userSrv.userInfo?.profile.avatar}}"></nz-avatar>
+          {{userSrv.userInfo?.profile.name}}
+        </div>
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item>
+            <a>{{userSrv.userInfo?.profile.name}}</a>
+          </li>
+          <li nz-menu-divider></li>
+          <li nz-menu-item (click)="logout()">
+            <a>退出登录</a>
+          </li>
+        </ul>
+      </nz-dropdown>
+    </nz-header>
+
+    <!-- container -->
+    <nz-content>
+      <router-outlet></router-outlet>
+      <!-- copyright -->
+      <div class="copyright">
+        <a href="https://github.com/xjonson/ProjectHub-Admin" target="_blank">
+          <i nz-icon type="github" theme="outline"></i>
+        </a>
+        <p class="mt-2">Project-Hub © 2019 Dev. By Jonson</p>
+      </div>
+    </nz-content>
+
+  </nz-layout>
+</nz-layout>
+
+<ng-template #trigger>
+  <i nz-icon type="up"></i>
+</ng-template>

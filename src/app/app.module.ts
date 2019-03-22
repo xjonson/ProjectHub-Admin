@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { AppComponent } from './app/app.component';
@@ -23,6 +23,7 @@ import { ProjectStatusPipeText, ProjectStatusPipe, ProjectColorPipe } from './pi
 import 'zone.js';
 import 'reflect-metadata';
 import { ViserModule } from 'viser-ng';
+import { MainComponent } from './common/main/main.component';
 
 
 
@@ -37,12 +38,13 @@ registerLocaleData(zh);
     SkillComponent,
     DashboardComponent,
     ProjectStatusPipeText,
-    ProjectStatusPipe, 
-    ProjectColorPipe,
+    ProjectStatusPipe,
+    ProjectColorPipe, MainComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
     AppRoutingModule,

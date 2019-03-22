@@ -36,19 +36,19 @@
           <td>
             <span *ngIf="item.role !== 1">
               <span [ngSwitch]="item.audit">
-                <p *ngSwitchCase="1">
+                <span *ngSwitchCase="1">
                   <a>审核通过</a>
-                </p>
-                <p *ngSwitchCase="2">
+                </span>
+                <span *ngSwitchCase="2">
                   <a href="">审核不通过</a>
-                </p>
+                </span>
                 <nz-dropdown *ngSwitchDefault>
                   <a nz-dropdown>
                     审核 <i nz-icon type="down"></i>
                   </a>
                   <ul nz-menu nzSelectable>
-                      <li nz-menu-item (click)="auditProject(item, 1)">审核通过</li>
-                      <li nz-menu-item (click)="auditProject(item, 2)">审核不通过</li>
+                    <li nz-menu-item (click)="auditProject(item, 1)">审核通过</li>
+                    <li nz-menu-item (click)="auditProject(item, 2)">审核不通过</li>
                   </ul>
                 </nz-dropdown>
               </span>
@@ -58,7 +58,7 @@
         </tr>
         <tr [nzExpand]="mapOfExpandData[item.id]">
           <td></td>
-          <td colspan="6">
+          <td colspan="7">
             <h4>项目详情</h4>
             <p>{{item.desc}}</p>
             <h4>项目预算</h4>
