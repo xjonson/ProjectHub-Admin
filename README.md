@@ -1,27 +1,59 @@
-# ProjHubAdmin
+# Project-Hub Admin
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
 
-## Development server
+这个项目是我在学习 angular 时做的，同时临近毕业打算作为毕业设计。项目分为 [移动客户端](https://github.com/xjonson/ProjectHub-Client)、[PC端后台管理](https://github.com/xjonson/ProjectHub-Admin)、[server端](https://github.com/xjonson/ProjectHub-BackEnd)。这是PC端后台管理。
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## 介绍
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- 当前使用fake api，将来会使用node代替
+- 管理员可进行登录，登录后可看到近2周的页面访问量、用户量、项目量的统计
+- 可对用户进行查看信息、拉黑的处理
+- 可对项目进行查看信息、审核发布的处理
+- 设置平台的静态数据如 技能列表 等
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## 开发环境
 
-## Running unit tests
+- Node.js v8.9.4
+- Angular v7.3.0
+- Angular Material v7.2.0
+- TypeScript v3.2.2
+- json-server v0.14.2
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## 使用
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+请先确保你已拥有以上环境
 
-## Further help
+```bash
+git clone git@github.com:xjonson/ProjectHub-Admin.git
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```bash
+cd ProjectHub-Admin
+```
+
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
+然后打开 [http://localhost:4200/](http://localhost:4200/) 即可预览效果
+
+项目部分页面请求接口会报错，是因为项目中使用了[json-server](https://github.com/typicode/json-server) 的 fake REST-API
+
+json文件在移动客户端的项目下，所以具体操作[移步移动客户端](https://github.com/xjonson/ProjectHub-Client)的介绍
+
+
+将来会使用node做一个server端
+
+## 展示
+
+![login](./screenshots/login.png)
+![dashboard](./screenshots/dashboard.png)
+![user](./screenshots/user.png)
+![project](./screenshots/project.png)
