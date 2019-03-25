@@ -4,9 +4,12 @@
     <!-- logo -->
     <div class="logo" routerLink="dashboard">
       <p *ngIf="!isCollapsed; else ForShort">
-        Project-Hub Admin
+        <!-- Project-Hub Admin -->
+        <img src="../../../assets/images/logo.png">
       </p>
-      <ng-template #ForShort>PH</ng-template>
+      <ng-template #ForShort>
+        <img src="../../../assets/images/logo_mini.png">
+      </ng-template>
     </div>
     <!-- menu -->
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
