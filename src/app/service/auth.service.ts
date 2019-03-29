@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { User } from '../models/User';
 import { UserService } from './user.service';
 import { tap, catchError, map } from 'rxjs/operators';
-import { CookieService } from './cookie.service';
+// import { CookieService } from './cookie.service';
 import { NzModalService } from 'ng-zorro-antd';
 
 @Injectable({
@@ -19,12 +19,11 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private userSrv: UserService,
-    public cookieSrv: CookieService,
     private router: Router,
     private modalService: NzModalService,
   ) {
     // 查看cookie中是否有登录信息
-    this.userid = this.cookieSrv.getCookie('ph-admin-user')
+    // this.userid = this.cookieSrv.getCookie('ph-admin-user')
     console.log('userid: ', this.userid);
     this.userSrv.getUserInfo(this.userid).subscribe(
       (user: User) => {
@@ -63,7 +62,7 @@ export class AuthService {
   // 登出
   logout() {
     this.loginState = false
-    this.cookieSrv.delCookie('ph-admin-user')
+    // this.cookieSrv.delCookie('ph-admin-user')
     this.router.navigateByUrl('/login')
   }
 

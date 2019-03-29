@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { User } from 'src/app/models/User';
-import { CookieService } from 'src/app/service/cookie.service';
 import { Router } from '_@angular_router@7.2.9@@angular/router';
 
 @Component({
@@ -18,7 +17,6 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authSrv: AuthService,
     private nzMessage: NzMessageService,
-    private cookieSrv: CookieService,
     private router: Router,
   ) { }
 
@@ -42,7 +40,7 @@ export class LoginComponent implements OnInit {
           const user = users[0]
           this.nzMessage.create('success', `登录成功，${user.profile.name}欢迎您!`);
           if(formData.remember) {
-            this.cookieSrv.setCookie('ph-admin-user', user.id, 24 * 60 * 60)
+            // this.cookieSrv.setCookie('ph-admin-user', user.id, 24 * 60 * 60)
           }
           // 重定向到授权前的路由
           this.router.navigate([this.authSrv.redirectUrl], {

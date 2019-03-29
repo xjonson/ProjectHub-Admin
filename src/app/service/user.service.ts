@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
-import { CookieService } from './cookie.service';
+// import { CookieService } from './cookie.service';
 import { tap } from "rxjs/operators";
 
 @Injectable({
@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private cookieSrv: CookieService,
+    // private cookieSrv: CookieService,
   ) { }
 
   getUsers(): Observable<User[]> {
@@ -22,7 +22,7 @@ export class UserService {
 
   // 获取用户信息 默认是当前登录用户
   getUserInfo(id: string = (this.userInfo && this.userInfo.id)) {
-    if (!id) id = this.cookieSrv.getCookie('ph-admin-user')
+    // if (!id) id = this.cookieSrv.getCookie('ph-admin-user')
     return this.http.get(`/api/user/${id}`).pipe(
       tap(
         (user: User) => {
