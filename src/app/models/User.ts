@@ -18,7 +18,7 @@ export interface User {
 export interface Msg {
   id: string,
   project_id: string, // 项目id
-  project_msg_id?: string, // 当前评论在原项目中的id
+  project_comment_id?: string, // 当前评论在原项目中的id
   from_user: Partial<User>,
   content: string,
   checked: boolean,
