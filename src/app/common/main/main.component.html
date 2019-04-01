@@ -1,8 +1,11 @@
 <nz-layout class="app">
   <!-- left -->
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+  <nz-sider nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="triggerTemplate">
     <!-- logo -->
-    <div class="logo" routerLink="dashboard">
+    <div class="logo"
+      routerLink="dashboard">
       <p *ngIf="!isCollapsed; else ForShort">
         <!-- Project-Hub Admin -->
         <img src="../../../assets/images/logo.png">
@@ -12,15 +15,23 @@
       </ng-template>
     </div>
     <!-- menu -->
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu *ngFor="let item of sidebarNav">
+    <ul nz-menu
+      [nzTheme]="'dark'"
+      [nzMode]="'inline'"
+      [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu
+        *ngFor="let item of sidebarNav">
         <span title>
-          <i nz-icon [type]="item.icon"></i>
+          <i nz-icon
+            [type]="item.icon"></i>
           <span class="nav-text">{{item.title}}</span>
         </span>
         <ul>
-          <li nz-menu-item *ngFor="let subItem of item.sub" [routerLink]="[subItem.router]">
-            <i nz-icon [type]="subItem.icon"></i>
+          <li nz-menu-item
+            *ngFor="let subItem of item.sub"
+            [routerLink]="[subItem.router]">
+            <i nz-icon
+              [type]="subItem.icon"></i>
             {{subItem.title}}
           </li>
         </ul>
@@ -33,21 +44,28 @@
 
     <!-- header -->
     <nz-header>
-      <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      <i class="trigger"
+        nz-icon
+        [type]="isCollapsed?'menu-unfold':'menu-fold'"
+        (click)="isCollapsed=!isCollapsed"></i>
       <nz-breadcrumb class="flex-1">
         <nz-breadcrumb-item *ngFor="let item of breadcrumbs">{{item | titlecase}}</nz-breadcrumb-item>
       </nz-breadcrumb>
-      <nz-dropdown [nzPlacement]="'bottomRight'" class="user">
+      <nz-dropdown [nzPlacement]="'bottomRight'"
+        class="user">
         <div nz-dropdown>
-          <nz-avatar nzIcon="user" nzSrc="{{userSrv.userInfo?.profile.avatar}}"></nz-avatar>
+          <nz-avatar nzIcon="user"
+            nzSrc="{{userSrv.userInfo?.profile.avatar}}"></nz-avatar>
           {{userSrv.userInfo?.profile.name}}
         </div>
-        <ul nz-menu nzSelectable>
+        <ul nz-menu
+          nzSelectable>
           <li nz-menu-item>
             <a>{{userSrv.userInfo?.profile.name}}</a>
           </li>
           <li nz-menu-divider></li>
-          <li nz-menu-item (click)="logout()">
+          <li nz-menu-item
+            (click)="logout()">
             <a>退出登录</a>
           </li>
         </ul>
@@ -59,8 +77,11 @@
       <router-outlet></router-outlet>
       <!-- copyright -->
       <div class="copyright">
-        <a href="https://github.com/xjonson/ProjectHub-Admin" target="_blank">
-          <i nz-icon type="github" theme="outline"></i>
+        <a href="https://github.com/xjonson/ProjectHub-Admin"
+          target="_blank">
+          <i nz-icon
+            type="github"
+            theme="outline"></i>
         </a>
         <p class="mt-2">Project-Hub © 2019 Dev. By Jonson</p>
       </div>
@@ -70,5 +91,6 @@
 </nz-layout>
 
 <ng-template #trigger>
-  <i nz-icon type="up"></i>
+  <i nz-icon
+    type="up"></i>
 </ng-template>

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { AppComponent } from './app/app.component';
 
@@ -24,6 +24,9 @@ import 'zone.js';
 import 'reflect-metadata';
 import { ViserModule } from 'viser-ng';
 import { MainComponent } from './common/main/main.component';
+import { UploadService } from './service/upload.service';
+import { AuthInterceptor } from './service/AuthInterceptor';
+import { MsgService } from './service/msg.service';
 
 
 
@@ -61,6 +64,9 @@ registerLocaleData(zh);
     UserService,
     ProjectService,
     SkillService,
+    UploadService,
+    MsgService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 export class AppModule { }

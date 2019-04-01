@@ -3,9 +3,9 @@ import { User } from './User';
 
 // 项目
 export interface Project {
-  id: string,
-  demand_user: User,
-  dev_user: User,
+  _id: string,
+  demand_user: Partial<User>,
+  dev_user: Partial<User>,
   avatar?: string,
   title: string,
   desc: string,
@@ -14,20 +14,24 @@ export interface Project {
   cycle: number,
   price: number,
   status: Status,
-  comments: Comment[],
-  audit: Audit
+  comments: Comment[]
+  audit: Audit,
+  applyList?: [],
 }
 
 /**
  * @description 项目评论
  */
 export interface Comment {
-  id: string, 
+  _id: string, 
   user: Partial<User>,
   create_time: string,
   content: string
 }
 
+/**
+ * @description 审核状态
+ */
 export enum Audit {
   '未审核' = 0,
   '审核通过' = 1,
@@ -58,8 +62,8 @@ export enum StatusText {
  * @description 项目状态的颜色
  */
 export enum Color {
-  'warning' = 0,
-  'success' = 1,
+  'warn' = 0,
+  'accent' = 1,
   'primary' = 2,
-  'default' = 3
+  'theme' = 3
 }

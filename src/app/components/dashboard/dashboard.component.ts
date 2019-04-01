@@ -4,6 +4,7 @@ import { UserService } from 'src/app/service/user.service';
 import { ProjectService } from 'src/app/service/project.service';
 import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ResTpl } from 'src/app/models/ResTpl';
 
 
 
@@ -77,8 +78,9 @@ export class DashboardComponent implements OnInit {
       this.projectSrv.getProjects()
     )
     parallel$.pipe(
-      tap(values => {
-        const [users, projects] = values
+      tap((res: ResTpl[]) => {
+        const users = res[0].data
+        const projects = res[1].data
         this.count.demandUser = users.filter(user => user.role === 2).length
         this.count.devUser = users.filter(user => user.role === 3).length
         this.count.userAll = users.length

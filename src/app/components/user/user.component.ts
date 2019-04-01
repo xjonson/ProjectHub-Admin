@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
 import { User } from 'src/app/models/User';
+import { ResTpl } from 'src/app/models/ResTpl';
 
 @Component({
   selector: 'app-user',
@@ -22,8 +23,9 @@ export class UserComponent implements OnInit {
 
   handleGetUsers() {
     this.userSrv.getUsers().subscribe(
-      (users: User[]) => {
-        this.userTable = users
+      (res: ResTpl) => {
+        console.log('res.data: ', res.data);
+        this.userTable = res.data
       }
     )
   }

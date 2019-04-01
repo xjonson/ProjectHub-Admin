@@ -1,5 +1,7 @@
 <nz-card [nzBordered]="false">
-  <nz-table #table [nzData]="userTable" [nzPageSize]="20">
+  <nz-table #table
+    [nzData]="userTable"
+    [nzPageSize]="20">
     <thead>
       <tr>
         <th>ID</th>
@@ -24,13 +26,15 @@
               需求者
             </span>
             <span *ngSwitchCase="3">
-              <nz-badge nzStatus="default" [nzStyle]="{'background-color':'#1890ff'}"></nz-badge>
+              <nz-badge nzStatus="default"
+                [nzStyle]="{'background-color':'#1890ff'}"></nz-badge>
               开发者
             </span>
           </span>
         </td>
         <td>
-          <nz-avatar nzIcon="user" nzSrc="{{data.profile.avatar}}"></nz-avatar>
+          <nz-avatar nzIcon="user"
+            nzSrc="{{data.profile.avatar}}"></nz-avatar>
           {{data.profile.name}}
         </td>
         <td>{{data.email}}</td>
@@ -49,15 +53,16 @@
 
 
 <!-- model -->
-<nz-modal [(nzVisible)]="modal1" (nzOnCancel)="
-modal1 = false" (nzOnOk)="
-modal1 = false">
+<nz-modal [(nzVisible)]="modal1"
+  (nzOnCancel)="modal1 = false"
+  (nzOnOk)="modal1 = false">
   <div *ngIf="userDetail">
-    <nz-avatar nzIcon="user" nzSrc="{{userDetail.profile.avatar}}"></nz-avatar>
+    <nz-avatar nzIcon="user"
+      nzSrc="{{userDetail.profile.avatar}}"></nz-avatar>
     <h3>昵称</h3>
     <p>{{userDetail.profile.name}}</p>
     <h3>ID</h3>
-    <p>{{userDetail.id}}</p>
+    <p>{{userDetail._id}}</p>
     <h3>邮箱</h3>
     <p>{{userDetail.email}}</p>
     <h3>电话</h3>

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
-// import { CookieService } from './cookie.service';
 import { tap } from "rxjs/operators";
+import { ResTpl } from '../models/ResTpl';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Injectable({
   providedIn: 'root'
@@ -13,35 +14,72 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    // private cookieSrv: CookieService,
+    private nzMessage: NzMessageService,
   ) { }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('/api/user')
-  }
-
-  // 获取用户信息 默认是当前登录用户
-  getUserInfo(id: string = (this.userInfo && this.userInfo.id)) {
-    // if (!id) id = this.cookieSrv.getCookie('ph-admin-user')
-    return this.http.get(`/api/user/${id}`).pipe(
+  // 用户登录
+  login(user: Partial<User>): Observable<any> {
+    return this.http.post('/api/user/login', user).pipe(
       tap(
-        (user: User) => {
-          if (!this.userInfo || id === this.userInfo.id) this.userInfo = user
+        (res: ResTpl) => {
+          if (res.code === 0) {
+            this.setUserInfo(res.data)
+          }
         }
       )
     )
   }
-  
+
   setUserInfo(user: User) {
     this.userInfo = user
   }
 
+  // 获取全部用户
+  getUsers() {
+    return this.http.get(`/api/user`).pipe(
+      tap((resTpl: ResTpl) => {
+        
+      })
+    )
+  }
+
+  // 获取用户信息
+  getUserInfo(id?: string) {
+    if (id) {
+      return this.http.get(`/api/user/${id}`)
+    } else {
+      return this.http.get(`/api/user/self`).pipe(
+        tap((resTpl: ResTpl) => {
+          if (resTpl.code === 0) {
+            this.userInfo = resTpl.data
+          }
+        })
+      )
+    }
+  }
+
   // 更新信息
-  updateUserInfo(id: string, data: Partial<User>) {
-    return this.http.patch(`api/user/${id}`, data).pipe(
+  updateUserInfo(data: Partial<User>) {
+    return this.http.patch(`api/user/${this.userInfo._id}`, data).pipe(
       tap(
-        (user: User) => {
-          if (!this.userInfo || id === this.userInfo.id) this.userInfo = user
+        (resTpl: ResTpl) => {
+          this.nzMessage.create('info', resTpl.msg);
+          if (resTpl.code === 0) this.userInfo = resTpl.data
+        }
+      )
+    )
+  }
+
+  // 修改密码
+  updatePassword(oldPwd, newPwd) {
+    const data = {
+      oldPwd,
+      newPwd
+    }
+    return this.http.patch(`api/user/password/${'updatePassword'}`, data).pipe(
+      tap(
+        (resTpl: ResTpl) => {
+          this.nzMessage.create('info', resTpl.msg);
         }
       )
     )
