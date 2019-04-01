@@ -15,7 +15,4 @@ export class DashboardService {
     return this.http.get('/api/dashboard')
   }
 
-  updateDatas(data) {
-    return this.http.patch('/api/dashboard', data)
-  }
 }

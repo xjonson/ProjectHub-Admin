@@ -3,7 +3,7 @@ import { DashboardService } from 'src/app/service/dashboard.service';
 import { UserService } from 'src/app/service/user.service';
 import { ProjectService } from 'src/app/service/project.service';
 import { forkJoin } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { ResTpl } from 'src/app/models/ResTpl';
 
 
@@ -67,79 +67,48 @@ export class DashboardComponent implements OnInit {
   }
   // 获取数据
   getPageData() {
-    const date1 = new Date()
-    const date2 = new Date(+date1 - (24 * 3600 * 1000))
-    const today = this.formatDate(date1)
-    const yesterday = this.formatDate(date2)
-
+    const now = new Date()
+    const today = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`
     // 合并 获取用户、项目数据
     const parallel$ = forkJoin(
       this.userSrv.getUsers(),
-      this.projectSrv.getProjects()
+      this.projectSrv.getProjects(),
+      this.dashboardSrv.getDatas()
     )
-    parallel$.pipe(
-      tap((res: ResTpl[]) => {
+    parallel$.subscribe(
+      (res: ResTpl[]) => {
         const users = res[0].data
         const projects = res[1].data
-        this.count.demandUser = users.filter(user => user.role === 2).length
-        this.count.devUser = users.filter(user => user.role === 3).length
-        this.count.userAll = users.length
-        this.count.userToday = users.filter(u => this.formatDate(u.create_time) === today).length
-        this.count.projectAll = projects.length
-        this.count.projectToday = projects.filter(p => this.formatDate(p.create_time) === today).length
-      })
-    ).subscribe(
-      () => {
-        // 获取昨天的数据
-        this.dashboardSrv.getDatas().subscribe(
-          (data: Dashboard) => {
-
-            const { user, page, project } = data
-            const todayUser = user.find(item => item.date === today)
-            const todayProject = project.find(item => item.date === today)
-            const todayPage = page.find(item => item.date === today)
-            // user
-            if (!todayUser) {
-              data.user = [
-                ...data.user,
-                {
-                  date: today,
-                  value: this.count.userAll
-                }
-              ]
-            } else {
-              todayUser.value = this.count.userAll
-            }
-            // project
-            if (!todayProject) {
-              data.project = [
-                ...data.project,
-                {
-                  date: today,
-                  value: this.count.projectAll
-                }
-              ]
-            } else {
-              todayProject.value = this.count.projectAll
-            }
-            // page
-            if (todayPage) {
-              this.count.pageToday = todayPage.value
-            }
-            this.count.pageAll = page.reduce((pre, cur) => {
-              return pre + cur.value
-            }, 0)
-
-            // 更新统计图数据
-            this.dashboardSrv.updateDatas(data).subscribe(
-              (data: Dashboard) => {
-                this.userData = data.user
-                this.pageData = data.page
-                this.projectData = data.project
-              }
-            )
-          }
-        )
+        const pages = res[2].data
+        const todayData = {
+          pages: pages.filter(i => i.date === today),
+          users: users.filter(i => this.formatDate(i.create_time) === today),
+          projects: projects.filter(i => this.formatDate(i.create_time) === today)
+        }
+        const pastData = {
+          pages: pages.reduce((pre, cur) => {
+            return cur.count + pre.count
+          }, 0),
+          users: users.length,
+          projects: projects.length
+        }
+        console.log('todayData: ', todayData);
+        this.count.pageAll = pastData.pages
+        this.count.pageToday = todayData.pages.length
+        this.count.userAll = pastData.users
+        this.count.userToday = todayData.users.length
+        this.count.devUser = users.filter(i => i.role === 3).length
+        this.count.demandUser = users.filter(i => i.role === 2).length
+        this.count.projectAll = pastData.projects
+        this.count.projectToday = todayData.projects.length
+        // 生成chart
+        this.pageData = pages.map(i => {
+          i.value = i.count
+          return i
+        }).slice(pages.length - 15, pages.length)
+        console.log('this.pageData: ', this.pageData);
+        // this.userData = 
+        // this.projectData = 
       }
     )
 
@@ -148,7 +117,7 @@ export class DashboardComponent implements OnInit {
     if (!(str instanceof Date)) {
       str = new Date(str)
     }
-    return `${str.getFullYear()}-${str.getMonth() + 1}-${str.getDate()}`
+    return `${str.getFullYear()}/${str.getMonth() + 1}/${str.getDate()}`
   }
 
   // tabs
