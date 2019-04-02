@@ -39,7 +39,7 @@ export class AuthService {
     const myConfirm = confirm('确定退出登录？')
     if (myConfirm) {
       localStorage.removeItem('ph-token')
-      this.router.navigate(['sub/login'])
+      this.router.navigate(['/login'])
     }
   }
 
@@ -77,7 +77,7 @@ export class AuthGuard implements CanActivate {
     this.modalService.error({
       nzTitle: '请先登录',
     });
-    this.router.navigate(['/sub/login'])
+    this.router.navigate(['/login'])
     return false
   }
 }
