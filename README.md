@@ -7,9 +7,9 @@
 ## 介绍
 
 - 使用了 [ng-zorro](https://ng.ant.design/) 组件库、[viser-ng](https://www.yuque.com/rs385i) 可视化图表，参照了 [ng-alain](https://github.com/ng-alain/ng-alain)的一些设计。
-- 当前使用fake api，将来会使用node代替
+- ~~当前使用fake api，将来会使用node代替~~已经使用node后端提供api
 - 管理员可进行登录，登录后可在dashboard页面看到近2周的页面访问量、用户量、项目量的统计
-- 可对用户进行查看信息、拉黑的处理
+- 可对用户进行注册审核、查看信息的处理
 - 可对项目进行查看信息、审核发布的处理
 - 设置平台的静态数据如 技能列表 等
 
@@ -45,12 +45,7 @@ npm run dev
 
 然后打开 [http://localhost:4200/](http://localhost:4200/) 即可预览效果
 
-项目部分页面请求接口会报错，是因为项目中使用了[json-server](https://github.com/typicode/json-server) 的 fake REST-API
-
-json文件在移动客户端的项目下，所以具体操作[移步移动客户端](https://github.com/xjonson/ProjectHub-Client)的介绍
-
-
-将来会使用node做一个server端
+server端api请[移步这里](https://github.com/xjonson/ProjectHub-BackEnd)
 
 ## 展示
 
