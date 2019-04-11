@@ -60,7 +60,7 @@ export class UserService {
 
   // 更新信息
   updateUserInfo(data: Partial<User>) {
-    return this.http.patch(`api/user/${this.userInfo._id}`, data).pipe(
+    return this.http.patch(`api/user/${data._id}`, data).pipe(
       tap(
         (resTpl: ResTpl) => {
           this.nzMessage.create('info', resTpl.msg);

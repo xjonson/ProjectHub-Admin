@@ -30,11 +30,11 @@
             {{item.demand_user.profile.name}}
           </td>
           <td>
-            <ng-template *ngIf="item.dev_user">
+            <div *ngIf="item.dev_user">
               <nz-avatar nzIcon="user"
                 nzSrc="{{item.dev_user.profile.avatar}}"></nz-avatar>
               {{item.dev_user.profile.name}}
-            </ng-template>
+            </div>
           </td>
           <td>
             <nz-badge nzStatus="{{item.status | projectColor}}"></nz-badge>

@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of table.data">
-        <td>{{data.id}}</td>
+        <td>{{data._id}}</td>
         <td>
           <span [ngSwitch]="data.role">
             <span *ngSwitchCase="1">
@@ -43,7 +43,28 @@
           <span *ngIf="data.role !== 1">
             <a (click)="showModal(data)">详细信息</a>
             <nz-divider nzType="vertical"></nz-divider>
-            <!-- <a>拉入黑名单</a> -->
+
+            <span [ngSwitch]="data.audit">
+              <span *ngSwitchCase="1">
+                <a>审核通过</a>
+              </span>
+              <span *ngSwitchCase="2">
+                <a href="">审核不通过</a>
+              </span>
+              <nz-dropdown *ngSwitchDefault>
+                <a nz-dropdown>
+                  审核 <i nz-icon
+                    type="down"></i>
+                </a>
+                <ul nz-menu
+                  nzSelectable>
+                  <li nz-menu-item
+                    (click)="auditUser(data, 1)">审核通过</li>
+                  <li nz-menu-item
+                    (click)="auditUser(data, 2)">审核不通过</li>
+                </ul>
+              </nz-dropdown>
+            </span>
           </span>
         </td>
       </tr>

@@ -6,7 +6,7 @@ export interface Project {
   _id: string,
   demand_user: Partial<User>,
   dev_user: Partial<User>,
-  avatar?: string,
+  // avatar?: string,
   title: string,
   desc: string,
   skills: Skill[],

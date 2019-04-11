@@ -1,14 +1,21 @@
 import { Skill } from './Skill';
 
 export interface User {
-  _id: string,
-  email: string,
+  // id
+  _id: string, 
+  // 邮箱
+  email: string, 
   password: string,
-  avatar?: string,
-  role: Role,
-  profile: profile,
-  skill: Skill[],
-  create_time: string,
+  // 角色
+  role: Role, 
+  // 信息
+  profile: profile, 
+  // 技能
+  skill: Skill[], 
+  // 注册时间
+  create_time: string, 
+  // 是否审核
+  audit: 0 | 1 | 2, 
 }
 
 
