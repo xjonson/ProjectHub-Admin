@@ -5,6 +5,8 @@ import { ProjectService } from 'src/app/service/project.service';
 import { forkJoin } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { ResTpl } from 'src/app/models/ResTpl';
+import { DateService } from 'src/app/service/date.service';
+
 
 
 
@@ -59,6 +61,7 @@ export class DashboardComponent implements OnInit {
     private dashboardSrv: DashboardService,
     private userSrv: UserService,
     private projectSrv: ProjectService,
+    private dateService: DateService
   ) { }
 
 
@@ -68,7 +71,7 @@ export class DashboardComponent implements OnInit {
   // 获取数据
   getPageData() {
     const now = new Date()
-    const today = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`
+    const today = this.dateService.stringDate(now)
     // 合并 获取用户、项目数据
     const parallel$ = forkJoin(
       this.userSrv.getUsers(),
@@ -80,11 +83,14 @@ export class DashboardComponent implements OnInit {
         const users = res[0].data
         const projects = res[1].data
         const pages = res[2].data
+        // 今日数据
         const todayData = {
           pages: pages.filter(i => i.date === today),
           users: users.filter(i => this.formatDate(i.create_time) === today),
           projects: projects.filter(i => this.formatDate(i.create_time) === today)
         }
+        console.log('todayData: ', todayData);
+        // 过去的总和
         const pastData = {
           pages: pages.reduce((pre, cur) => {
             return cur.count + pre.count
@@ -92,23 +98,47 @@ export class DashboardComponent implements OnInit {
           users: users.length,
           projects: projects.length
         }
-        console.log('todayData: ', todayData);
         this.count.pageAll = pastData.pages
-        this.count.pageToday = todayData.pages.length
+        this.count.pageToday = todayData.pages[0].count
         this.count.userAll = pastData.users
         this.count.userToday = todayData.users.length
         this.count.devUser = users.filter(i => i.role === 3).length
         this.count.demandUser = users.filter(i => i.role === 2).length
         this.count.projectAll = pastData.projects
         this.count.projectToday = todayData.projects.length
-        // 生成chart
+        // -- 生成chart --
+        // page
         this.pageData = pages.map(i => {
           i.value = i.count
           return i
         }).slice(pages.length - 15, pages.length)
-        console.log('this.pageData: ', this.pageData);
-        // this.userData = 
-        // this.projectData = 
+        // 生成最近15天的空白模板数组
+        for (let i = 0; i < 15; i++) {
+          this.userData.unshift({
+            date: this.dateService.stringDate(now.getTime() - i * 24 * 3600 * 1000),
+            value: 0
+          })
+          this.projectData.unshift({
+            date: this.dateService.stringDate(now.getTime() - i * 24 * 3600 * 1000),
+            value: 0
+          })
+        }
+        // user
+        this.userData.forEach(dateTpl => {
+          users.forEach(i => {
+            if (this.dateService.stringDate(i.create_time) === dateTpl.date) {
+              dateTpl.value++
+            }
+          })
+        })
+        // project
+        this.projectData.forEach(dateTpl => {
+          projects.forEach(i => {
+            if (this.dateService.stringDate(+i.create_time) === dateTpl.date) {
+              dateTpl.value++
+            }
+          })
+        })
       }
     )
 

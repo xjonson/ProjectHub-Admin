@@ -27,6 +27,7 @@ import { MainComponent } from './common/main/main.component';
 import { UploadService } from './service/upload.service';
 import { AuthInterceptor } from './service/AuthInterceptor';
 import { MsgService } from './service/msg.service';
+import { DateService } from './service/date.service';
 
 
 
@@ -66,6 +67,7 @@ registerLocaleData(zh);
     SkillService,
     UploadService,
     MsgService,
+    DateService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })

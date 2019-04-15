@@ -22,11 +22,11 @@
       <span>今日访问量 {{count.pageToday | number}} </span>
     </nz-card>
   </div>
-  <!-- 用户总量 -->
+  <!-- 用户数量 -->
   <div nz-col
     nzSpan="8">
     <nz-card [nzBordered]="false">
-      <span>用户总量</span>
+      <span>用户数量</span>
       <h1>{{count.userAll | number}}</h1>
       <div class="mt-2">
         <i nz-icon
@@ -40,11 +40,11 @@
         <br>开发者：{{count.devUser | number}}</span>
     </nz-card>
   </div>
-  <!-- 项目总数 -->
+  <!-- 项目数量 -->
   <div nz-col
     nzSpan="8">
     <nz-card [nzBordered]="false">
-      <span>项目总数</span>
+      <span>项目数量</span>
       <h1>{{count.projectAll | number}}</h1>
       <div>
         <v-chart [forceFit]="chart1.forceFit"
@@ -86,12 +86,21 @@
             </v-chart>
           </div>
         </nz-tab>
-        <nz-tab nzTitle="用户总量">
+        <nz-tab nzTitle="用户数量">
           <div class="tab-con">
-
+            <v-chart *ngIf="tabAct == 1"
+              [forceFit]="chart1.forceFit"
+              [height]="300"
+              [scale]="chart1.scaleWithText"
+              [padding]="40"
+              [data]="userData">
+              <v-tooltip></v-tooltip>
+              <v-axis></v-axis>
+              <v-bar position="date*value"></v-bar>
+            </v-chart>
           </div>
         </nz-tab>
-        <nz-tab nzTitle="项目总数">
+        <nz-tab nzTitle="项目数量">
           <div class="tab-con">
             <v-chart *ngIf="tabAct == 2"
               [forceFit]="chart1.forceFit"
