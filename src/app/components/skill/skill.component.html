@@ -1,3 +1,38 @@
 <nz-card [nzBordered]="false">
-
+  <nz-alert nzType="warning"
+    nzCloseable
+    nzMessage="注意！添加修改技能后会对已发布项目有影响，请谨慎修改"></nz-alert>
+  <br>
+  <div class="mb-4">
+    <label>名称：</label>
+    <input nz-input
+      style="width: 120px;margin-right: 20px;"
+      [(ngModel)]="skillName" />
+    <button nz-button
+      (click)="addSkill()">添加skill</button>
+  </div>
+  <nz-table #table
+    [nzData]="skillList"
+    [nzPageSize]="20">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of table.data">
+        <td>{{data.id}}</td>
+        <td>
+          {{data.name}}
+        </td>
+        <td>
+          <span >
+            <a (click)="delSkill(data)">删除skill</a>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </nz-card>
