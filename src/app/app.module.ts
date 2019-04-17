@@ -18,7 +18,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserService } from './service/user.service';
 import { SkillService } from './service/skill.service';
 import { ProjectService } from './service/project.service';
-import { ProjectStatusPipeText, ProjectStatusPipe, ProjectColorPipe } from './pipe/project.pipe';
+import { ProjectStatusTextPipe, ProjectStatusPipe, ProjectColorPipe } from './pipe/project.pipe';
 
 import 'zone.js';
 import 'reflect-metadata';
@@ -41,7 +41,7 @@ registerLocaleData(zh);
     ProjectComponent,
     SkillComponent,
     DashboardComponent,
-    ProjectStatusPipeText,
+    ProjectStatusTextPipe,
     ProjectStatusPipe,
     ProjectColorPipe, MainComponent,
   ],
