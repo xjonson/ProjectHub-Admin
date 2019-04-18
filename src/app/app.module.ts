@@ -28,6 +28,7 @@ import { UploadService } from './service/upload.service';
 import { AuthInterceptor } from './service/AuthInterceptor';
 import { MsgService } from './service/msg.service';
 import { DateService } from './service/date.service';
+import { ProjectStepComponent } from './components/project-step/project-step.component';
 
 
 
@@ -43,7 +44,7 @@ registerLocaleData(zh);
     DashboardComponent,
     ProjectStatusTextPipe,
     ProjectStatusPipe,
-    ProjectColorPipe, MainComponent,
+    ProjectColorPipe, MainComponent, ProjectStepComponent,
   ],
   imports: [
     BrowserModule,

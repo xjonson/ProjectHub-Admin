@@ -7,6 +7,7 @@ import { SkillComponent } from '../components/skill/skill.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { MainComponent } from '../common/main/main.component';
 import { AuthGuard } from '../service/auth.service';
+import { ProjectStepComponent } from '../components/project-step/project-step.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'project', component: ProjectComponent },
       { path: 'skill', component: SkillComponent },
+      { path: 'project-step', component: ProjectStepComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },

@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
           projects: projects.length
         }
         this.count.pageAll = pastData.pages
-        this.count.pageToday = todayData.pages[0].count
+        this.count.pageToday = todayData.pages[0] ? todayData.pages[0].count : 0
         this.count.userAll = pastData.users
         this.count.userToday = todayData.users.length
         this.count.devUser = users.filter(i => i.role === 3).length

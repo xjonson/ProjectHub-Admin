@@ -19,23 +19,38 @@
       [nzTheme]="'dark'"
       [nzMode]="'inline'"
       [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu
-        *ngFor="let item of sidebarNav">
-        <span title>
-          <i nz-icon
-            [type]="item.icon"></i>
-          <span class="nav-text">{{item.title}}</span>
-        </span>
-        <ul>
-          <li nz-menu-item
-            *ngFor="let subItem of item.sub"
-            [routerLink]="[subItem.router]">
-            <i nz-icon
-              [type]="subItem.icon"></i>
-            {{subItem.title}}
+      <div *ngFor="let item of sidebarNav">
+        <!-- 二级 -->
+        <div *ngIf="item.sub; else LINK">
+          <li nz-submenu>
+            <span title>
+              <i nz-icon
+                [type]="item.icon"></i>
+              <span class="nav-text">{{item.title}}</span>
+            </span>
+            <ul>
+              <li nz-menu-item
+                *ngFor="let subItem of item.sub"
+                [routerLink]="[subItem.router]">
+                <i nz-icon
+                  [type]="subItem.icon"></i>
+                {{subItem.title}}
+              </li>
+            </ul>
           </li>
-        </ul>
-      </li>
+        </div>
+        <!-- 一级 -->
+        <ng-template #LINK>
+          <ul>
+            <li nz-menu-item
+              [routerLink]="[item.router]">
+              <i nz-icon
+                [type]="item.icon"></i>
+              {{item.title}}
+            </li>
+          </ul>
+        </ng-template>
+      </div>
     </ul>
   </nz-sider>
 

@@ -14,23 +14,28 @@ export class MainComponent implements OnInit {
   triggerTemplate: TemplateRef<void> | null = null;
   sidebarNav = [
     {
+      icon: 'dashboard',
+      title: '仪表盘',
+      router: 'dashboard',
+    },
+    {
       icon: 'user',
-      title: '用户',
+      title: '用户管理',
       sub: [
         {
           icon: 'user',
-          title: '用户',
+          title: '用户列表',
           router: 'user',
         },
       ]
     },
     {
       icon: 'project',
-      title: '项目',
+      title: '项目管理',
       sub: [
         {
           icon: 'project',
-          title: '项目',
+          title: '项目列表',
           router: 'project',
         },
       ]
@@ -40,9 +45,14 @@ export class MainComponent implements OnInit {
       title: '设置',
       sub: [
         {
-          icon: 'ordered-list',
+          icon: 'code',
           title: '技能 Skill',
           router: 'skill',
+        },
+        {
+          icon: 'ordered-list',
+          title: '项目评估元数据',
+          router: 'project-step',
         },
       ]
     },
