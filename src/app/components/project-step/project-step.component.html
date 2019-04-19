@@ -1,3 +1,112 @@
-<p>
-  project-step works!
-</p>
+<nz-card [nzBordered]="false">
+  <nz-alert nzType="warning"
+    nzCloseable
+    nzMessage="修改不会对已发布项目产生影响"></nz-alert>
+  <br>
+  <nz-row class="row-wrap">
+    <nz-col nzSpan="8">
+      <div class="card">
+        <i nz-icon
+          nzType="html5"
+          nzTheme="outline"></i>
+        Web网站
+      </div>
+      <button nz-button
+        (click)="toggleExpand('web')"
+        class="mb-2 ml-2">全部展开</button>
+      <nz-tree [nzData]="nodes.web.data"
+        [nzShowLine]="true"
+        (nzContextMenu)="showContextMenu($event, contextTemplate, 'web')"
+        [nzExpandAll]="nodesData.web.expand">
+      </nz-tree>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <div class="card">
+        <i nz-icon
+          nzType="wechat"
+          nzTheme="outline"></i>
+        小程序
+      </div>
+      <button nz-button
+        (click)="toggleExpand('mp')"
+        class="mb-2 ml-2">全部展开</button>
+      <nz-tree [nzData]="nodes.mp.data"
+        [nzShowLine]="true"
+        (nzContextMenu)="showContextMenu($event, contextTemplate, 'mp')"
+        [nzExpandAll]="nodesData.mp.expand">
+      </nz-tree>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <div class="card">
+        <i nz-icon
+          nzType="android"
+          nzTheme="outline"></i>
+        Android
+      </div>
+      <button nz-button
+        (click)="toggleExpand('android')"
+        class="mb-2 ml-2">全部展开</button>
+      <nz-tree [nzData]="nodes.android.data"
+        [nzShowLine]="true"
+        (nzContextMenu)="showContextMenu($event, contextTemplate, 'android')"
+        [nzExpandAll]="nodesData.android.expand">
+      </nz-tree>
+    </nz-col>
+  </nz-row>
+  <!-- 右键弹框 -->
+  <ng-template #contextTemplate>
+    <ul nz-menu
+      nzInDropDown
+      (nzClick)="closeDropDown($event)">
+      <li nz-menu-item
+        (click)="modalVisible1 = true">修改名称</li>
+      <li nz-menu-item
+        (click)="modalVisible2 = true">添加兄弟节点</li>
+      <li nz-menu-item
+        (click)="modalVisible3 = true">添加子节点</li>
+      <li nz-menu-divider></li>
+      <li nz-menu-item
+        (click)="alertDelNode()">删除节点</li>
+    </ul>
+  </ng-template>
+  <!-- 修改名称弹框 -->
+  <nz-modal [(nzVisible)]="modalVisible1"
+    nzTitle="修改节点名称"
+    (nzOnOk)="handleChangeNodeName()"
+    (nzOnCancel)="cancelChangeNodeName()">
+    <div *ngIf="selectNode">
+      <p>
+        <span *ngFor="let item of selectNodePath">{{item}} / </span>
+      </p>
+      <input type="text"
+        nz-input
+        [(ngModel)]="selectNode.title">
+    </div>
+  </nz-modal>
+  <!-- 添加兄弟节点 -->
+  <nz-modal [(nzVisible)]="modalVisible2"
+    nzTitle="添加兄弟节点"
+    (nzOnOk)="handleAddSiblingNode()"
+    (nzOnCancel)="cancelAddSiblingNode()">
+    <div *ngIf="selectNode">
+      <p><span *ngFor="let item of selectNodePath">{{item}} / </span></p>
+      <p>兄弟节点名称</p>
+      <input type="text"
+        nz-input
+        [(ngModel)]="siblingNode.title">
+    </div>
+  </nz-modal>
+  <!-- 添加子节点 -->
+  <nz-modal [(nzVisible)]="modalVisible3"
+    nzTitle="添加子节点"
+    (nzOnOk)="handleAddChildNode()"
+    (nzOnCancel)="cancelAddChildNode()">
+    <div *ngIf="selectNode">
+      <p><span *ngFor="let item of selectNodePath">{{item}} / </span></p>
+      <p>子节点名称</p>
+      <input type="text"
+        nz-input
+        [(ngModel)]="childNode.title">
+    </div>
+  </nz-modal>
+</nz-card>

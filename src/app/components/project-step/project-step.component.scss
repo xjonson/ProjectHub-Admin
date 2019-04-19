@@ -1,0 +1,32 @@
+.row-wrap {
+  display: flex;
+
+  nz-col {
+    flex: 2;
+    padding: 0 10px;
+    transition: all .3s ease-in-out;
+
+    &:nth-child(2) {
+      border-right: 1px solid #eee;
+      border-left: 1px solid #eee;
+    }
+
+    &:hover {
+      // flex: 3;
+    }
+  }
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 60px;
+  text-align: center;
+  font-size: 22px;
+  margin: 0 30px 20px;
+  background-color: #51586e;
+  color: white;
+  box-shadow: 2px 3px 7px 0px #51576e52;
+}
