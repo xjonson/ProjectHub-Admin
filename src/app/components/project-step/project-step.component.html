@@ -63,6 +63,7 @@
       <li nz-menu-item
         (click)="modalVisible2 = true">添加兄弟节点</li>
       <li nz-menu-item
+        *ngIf="selectNode.level < 3"
         (click)="modalVisible3 = true">添加子节点</li>
       <li nz-menu-divider></li>
       <li nz-menu-item
