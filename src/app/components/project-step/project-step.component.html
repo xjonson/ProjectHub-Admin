@@ -3,6 +3,7 @@
     nzCloseable
     nzMessage="修改不会对已发布项目产生影响"></nz-alert>
   <br>
+  <span *ngIf="selectNode?.origin">{{selectNode.origin | json}}</span>
   <nz-row class="row-wrap">
     <nz-col nzSpan="8">
       <div class="card">
@@ -68,6 +69,11 @@
       <li nz-menu-divider></li>
       <li nz-menu-item
         (click)="alertDelNode()">删除节点</li>
+      <span *ngIf="selectNode.isLeaf">
+        <li nz-menu-divider></li>
+        <li nz-menu-item
+          (click)="modalVisible4 = true">修改金额「￥{{ selectNode?.origin.price }}」</li>
+      </span>
     </ul>
   </ng-template>
   <!-- 修改名称弹框 -->
@@ -82,6 +88,22 @@
       <input type="text"
         nz-input
         [(ngModel)]="selectNode.title">
+    </div>
+  </nz-modal>
+  <!-- 修改金额弹框 -->
+  <nz-modal [(nzVisible)]="modalVisible4"
+    nzTitle="修改节点金额"
+    (nzOnOk)="handleChangeNodePrice()"
+    (nzOnCancel)="cancelChangeNodePrice()">
+    <div *ngIf="selectNode?.origin">
+      <p>
+        <span *ngFor="let item of selectNodePath">{{item}} / </span>
+      </p>
+      <nz-input-group nzAddOnBefore="￥">
+        <nz-input-number [(ngModel)]="selectNode?.origin.price"
+          [nzMin]="1"
+          [nzStep]="1"></nz-input-number>
+      </nz-input-group>
     </div>
   </nz-modal>
   <!-- 添加兄弟节点 -->

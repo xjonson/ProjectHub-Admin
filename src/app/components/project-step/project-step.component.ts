@@ -7,8 +7,12 @@ import { NzMessageService } from 'ng-zorro-antd';
 interface firstNodeData {
   _id: string,
   type: 'web' | 'mp' | 'android',
-  data: [NzTreeNode]
+  data: [myNzTreeNode]
 }
+interface myNzTreeNode extends NzTreeNode {
+  price?: number
+}
+
 @Component({
   selector: 'app-project-step',
   templateUrl: './project-step.component.html',
@@ -32,11 +36,11 @@ export class ProjectStepComponent implements OnInit {
     android: {
       expand: false,
     }
-  }
+  };
   // 当前选择的类型
   selectPS: firstNodeData;
   // 当前选择的节点
-  selectNode: NzTreeNode;
+  selectNode: myNzTreeNode;
   selectNodePath = [];
   // 右键选项
   dropdown: NzDropdownContextComponent;
@@ -44,13 +48,14 @@ export class ProjectStepComponent implements OnInit {
   modalVisible1 = false;
   modalVisible2 = false;
   modalVisible3 = false;
+  modalVisible4 = false;
   // 兄弟节点
-  siblingNode: Partial<NzTreeNode> = {
+  siblingNode: Partial<myNzTreeNode> = {
     title: '',
     isLeaf: true
   };
   // 子节点
-  childNode: Partial<NzTreeNode> = {
+  childNode: Partial<myNzTreeNode> = {
     title: '',
     isLeaf: true
   };
@@ -127,14 +132,39 @@ export class ProjectStepComponent implements OnInit {
   }
   cancelChangeNodeName(): void {
     this.modalVisible1 = false;
-    this.selectNode = {} as NzTreeNode
+    this.selectNode = {} as myNzTreeNode
+  }
+
+  // -----------修改金额-----------
+  handleChangeNodePrice(): void {
+    this.modalVisible4 = false;
+    const selectNodeKey = this.selectNode.key
+    // 递归
+    const recursion = (list) => {
+      list.forEach(item => {
+        if (selectNodeKey === item.key) {
+          item.price = this.selectNode.origin.price
+          return
+        } else {
+          if (item.children) {
+            recursion(item.children)
+          }
+        }
+      })
+    }
+    recursion(this.selectPS.data)
+    this.handleUpdatePS()
+  }
+  cancelChangeNodePrice(): void {
+    this.modalVisible4 = false;
+    this.selectNode = {} as myNzTreeNode
   }
 
   // -----------添加兄弟节点-----------
   handleAddSiblingNode(): void {
     // console.log('this.selectPS: ', this.selectPS);
     // console.log('this.selectNode: ', this.selectNode);
-    let siblings: NzTreeNode[];
+    let siblings: myNzTreeNode[];
 
     // 1. 生成:
     if (this.selectNode.parentNode) {
@@ -155,10 +185,10 @@ export class ProjectStepComponent implements OnInit {
     // 2. 插入 如果有父节点
     if (this.selectNode.parentNode) {
       // 从selectPS中递归查找匹配的selectNode
-      const recursion = (nodes: NzTreeNode[], parentNode: NzTreeNode | null) => {
+      const recursion = (nodes: myNzTreeNode[], parentNode: myNzTreeNode | null) => {
         nodes.forEach(node => {
           if (node.key === this.selectNode.key) {
-            parentNode.children.push(<NzTreeNode>this.siblingNode)
+            parentNode.children.push(<myNzTreeNode>this.siblingNode)
           } else if (node.children) {
             recursion(node.children, node)
           }
@@ -169,7 +199,7 @@ export class ProjectStepComponent implements OnInit {
     // 2. 插入 没有父节点
     else {
       // 直接在selectPS添加
-      this.selectPS.data.push(this.siblingNode as NzTreeNode)
+      this.selectPS.data.push(this.siblingNode as myNzTreeNode)
     }
 
     // 3. 插入完成 更新、清空
@@ -177,7 +207,7 @@ export class ProjectStepComponent implements OnInit {
   }
   cancelAddSiblingNode(): void {
     this.modalVisible2 = false;
-    this.selectNode = {} as NzTreeNode
+    this.selectNode = {} as myNzTreeNode
   }
 
   // -----------添加子节点-----------
@@ -201,11 +231,12 @@ export class ProjectStepComponent implements OnInit {
     this.childNode.isLeaf = true
     // 2. 插入
     // 从selectPS中递归查找匹配的selectNode
-    const recursion = (nodes: NzTreeNode[]) => {
+    const recursion = (nodes: myNzTreeNode[]) => {
       nodes.forEach(node => {
         if (node.key === this.selectNode.key) {
           node.isLeaf = false
-          node.children.push(<NzTreeNode>this.childNode)
+          node.price = 0
+          node.children.push(<myNzTreeNode>this.childNode)
         } else if (node.children) {
           recursion(node.children)
         }
@@ -217,7 +248,7 @@ export class ProjectStepComponent implements OnInit {
   }
   cancelAddChildNode(): void {
     this.modalVisible3 = false;
-    this.selectNode = {} as NzTreeNode
+    this.selectNode = {} as myNzTreeNode
   }
 
   // -----------删除节点-----------
@@ -229,7 +260,7 @@ export class ProjectStepComponent implements OnInit {
         // console.log('this.selectPS: ', this.selectPS);
         // console.log('this.selectNode: ', this.selectNode);
         // 从selectPS中递归查找匹配的selectNode
-        const recursion = (nodes: NzTreeNode[], parentNode) => {
+        const recursion = (nodes: myNzTreeNode[], parentNode) => {
           nodes.forEach((node, index) => {
             if (node.key === this.selectNode.key) {
               parentNode.children.splice(index, 1)
@@ -254,12 +285,13 @@ export class ProjectStepComponent implements OnInit {
           this.siblingNode = {}
           this.childNode = {}
           this.selectPS = <firstNodeData>{}
-          this.selectNode = <NzTreeNode>{}
+          this.selectNode = <myNzTreeNode>{}
           this.selectNodePath = []
           // 关闭弹框
           this.modalVisible1 = false;
           this.modalVisible2 = false;
           this.modalVisible3 = false;
+          this.modalVisible4 = false;
           // 
           this.nzMessage.create('success', `更新成功！`);
           this.handleGetPS()

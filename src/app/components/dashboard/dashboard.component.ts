@@ -107,11 +107,6 @@ export class DashboardComponent implements OnInit {
         this.count.projectAll = pastData.projects
         this.count.projectToday = todayData.projects.length
         // -- 生成chart --
-        // page
-        this.pageData = pages.map(i => {
-          i.value = i.count
-          return i
-        }).slice(pages.length - 15, pages.length)
         // 生成最近15天的空白模板数组
         for (let i = 0; i < 15; i++) {
           this.userData.unshift({
@@ -122,7 +117,20 @@ export class DashboardComponent implements OnInit {
             date: this.dateService.stringDate(now.getTime() - i * 24 * 3600 * 1000),
             value: 0
           })
+          this.pageData.unshift({
+            date: this.dateService.stringDate(now.getTime() - i * 24 * 3600 * 1000),
+            value: 0
+          })
         }
+        // page
+        this.pageData.forEach(dateTpl => {
+          pages.forEach(i => {
+            if (i.date === dateTpl.date) {
+              dateTpl.value = i.count
+            }
+          })
+        })
+        console.log('this.pageData: ', this.pageData);
         // user
         this.userData.forEach(dateTpl => {
           users.forEach(i => {
@@ -131,6 +139,7 @@ export class DashboardComponent implements OnInit {
             }
           })
         })
+        console.log('this.userData: ', this.userData);
         // project
         this.projectData.forEach(dateTpl => {
           projects.forEach(i => {
