@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/Project';
 import { ProjectService } from 'src/app/service/project.service';
 import { UserService } from 'src/app/service/user.service';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { User } from 'src/app/models/User';
 import { ResTpl } from 'src/app/models/ResTpl';
 import { MsgService } from 'src/app/service/msg.service';
@@ -22,6 +22,7 @@ export class ProjectComponent implements OnInit {
     private userSrv: UserService,
     private nzMessage: NzMessageService,
     private msgSrv: MsgService,
+    private modal: NzModalService,
   ) { }
 
   ngOnInit() {
@@ -63,5 +64,23 @@ export class ProjectComponent implements OnInit {
       isAction: true,
     }
     this.msgSrv.sendMsg(data).subscribe()
+  }
+
+  // 删除项目
+  delProject(project: Project) {
+    this.modal.confirm({
+      nzContent: '确认删除该项目？',
+      nzOnOk: () => {
+        this.projectSrv.delProject(project._id).subscribe(
+          (resTpl: ResTpl) => {
+            console.log('resTpl: ', resTpl);
+            if (resTpl.code === 0) {
+              this.handleGetProjects()
+            }
+          }
+        )
+
+      }
+    })
   }
 }

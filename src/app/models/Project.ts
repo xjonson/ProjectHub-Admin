@@ -62,8 +62,8 @@ export enum StatusText {
  * @description 项目状态的颜色
  */
 export enum Color {
-  'warn' = 0,
-  'accent' = 1,
+  'warning' = 0,
+  'success' = 1,
   'primary' = 2,
-  'theme' = 3
+  'default' = 3
 }

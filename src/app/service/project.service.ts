@@ -43,4 +43,13 @@ export class ProjectService {
       })
     )
   }
+
+  // 删除项目
+  delProject(pid: string): Observable<any> {
+    return this.http.delete(`api/project/${pid}`).pipe(
+      tap((res: ResTpl) => {
+        this.nzMessage.create('info', res.msg);
+      })
+    )
+  }
 }

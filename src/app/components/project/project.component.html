@@ -10,6 +10,7 @@
         <th>项目发布时间</th>
         <th>需求者</th>
         <th>开发者</th>
+        <th>估价</th>
         <th>状态</th>
         <th>操作</th>
       </tr>
@@ -36,6 +37,7 @@
               {{item.dev_user.profile.name}}
             </div>
           </td>
+          <td>￥{{item.project_assess}}</td>
           <td>
             <nz-badge nzStatus="{{item.status | projectColor}}"></nz-badge>
             {{item.status | projectStatus}}
@@ -47,7 +49,7 @@
                   <a>审核通过</a>
                 </span>
                 <span *ngSwitchCase="2">
-                  <a href="">审核不通过</a>
+                  <a>审核不通过</a>
                 </span>
                 <nz-dropdown *ngSwitchDefault>
                   <a nz-dropdown>
@@ -63,21 +65,40 @@
                   </ul>
                 </nz-dropdown>
               </span>
-              <!-- <nz-divider nzType="vertical"></nz-divider> -->
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="delProject(item)">删除项目</a>
             </span>
           </td>
         </tr>
         <tr [nzExpand]="mapOfExpandData[item._id]">
           <td></td>
           <td colspan="7">
-            <h4>项目ID</h4>
-            <p>{{item._id}}</p>
-            <h4>项目详情</h4>
-            <p>{{item.desc}}</p>
-            <h4>项目预算</h4>
-            <p>￥{{item.price | number}}</p>
-            <h4>项目发布时间</h4>
-            <p>{{item.create_time | date: 'yyyy-MM-dd hh:mm:ss'}}</p>
+            <div class="d-flex justify-content-between align-items-top">
+              <div class="flex-1">
+                <h4>项目填写信息</h4>
+                <ul>
+                  <li>项目ID：{{item._id}}</li>
+                  <li>项目详情：{{item.desc}}</li>
+                  <li>项目预算：￥{{item.price | number}}</li>
+                  <li>项目发布时间：{{item.create_time | date: 'yyyy-MM-dd hh:mm:ss'}}</li>
+                </ul>
+              </div>
+              <div class="flex-1">
+                <h4>项目评估信息</h4>
+                <ul>
+                  <li>项目类型：{{item.project_type}}</li>
+                  <li>项目功能：
+                    <span *ngFor="let item of item.project_fun">
+                      <br>
+                      <span *ngFor="let item2 of item">
+                        {{item2.title}}-
+                      </span>
+                    </span>
+                  </li>
+                  <li>项目估价：￥{{item.project_assess}}</li>
+                </ul>
+              </div>
+            </div>
             <div class="d-flex justify-content-between align-items-top">
               <div class="flex-1">
                 <h4>需求者</h4>
