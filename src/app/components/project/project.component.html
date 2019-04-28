@@ -46,10 +46,10 @@
             <span *ngIf="item.role !== 1">
               <span [ngSwitch]="item.audit">
                 <span *ngSwitchCase="1">
-                  <a>审核通过</a>
+                  <span>审核通过</span>
                 </span>
                 <span *ngSwitchCase="2">
-                  <a>审核不通过</a>
+                  <span>审核不通过</span>
                 </span>
                 <nz-dropdown *ngSwitchDefault>
                   <a nz-dropdown>
