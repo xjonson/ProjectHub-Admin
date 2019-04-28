@@ -33,12 +33,10 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     const formData = this.validateForm.value
-    // if (formData.email != 'admin@ph.com') {
-    //   this.nzMessage.create('warn', `账号密码错误`);
-    //   return
-    // }
     this.userSrv.login(formData).subscribe((resTpl: ResTpl) => {
       if (resTpl.code === 0) {
+        // 是否是管理员
+        if (resTpl.data.role != 1) return this.nzMessage.error('非管理员用户不可登录')
         const user = resTpl.data
         localStorage.setItem('ph-token', user.token)
         this.nzMessage.create('success', `登录成功，${user.profile.name}欢迎您!`);

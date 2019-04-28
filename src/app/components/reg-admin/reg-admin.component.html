@@ -21,21 +21,8 @@
       <tr *ngFor="let data of table.data">
         <td>{{data._id}}</td>
         <td>
-          <span [ngSwitch]="data.role">
-            <span *ngSwitchCase="1">
-              <nz-badge nzStatus="success"></nz-badge>
-              管理员
-            </span>
-            <span *ngSwitchCase="2">
-              <nz-badge nzStatus="warning"></nz-badge>
-              需求者
-            </span>
-            <span *ngSwitchCase="3">
-              <nz-badge nzStatus="default"
-                [nzStyle]="{'background-color':'#1890ff'}"></nz-badge>
-              开发者
-            </span>
-          </span>
+          <nz-badge nzStatus="success"></nz-badge>
+          管理员
         </td>
         <td>
           <nz-avatar nzIcon="user"
@@ -49,7 +36,8 @@
           <span>
             <a (click)="showModal(data)">详细信息</a>
             <nz-divider nzType="vertical"></nz-divider>
-            <a *ngIf="data.email != 'admin@ph.com'" (click)="handleDeleteUser(data)">移除管理员</a>
+            <a *ngIf="data.email != 'admin@ph.com'"
+              (click)="handleDeleteUser(data)">移除管理员</a>
           </span>
         </td>
       </tr>
