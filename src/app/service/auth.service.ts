@@ -20,7 +20,7 @@ export class AuthService {
     private http: HttpClient,
     private userSrv: UserService,
     private router: Router,
-    private modalService: NzModalService,
+    private modal: NzModalService
   ) {
     // 查看cookie中是否有登录信息
     if (localStorage.getItem('ph-token')) {
@@ -36,11 +36,13 @@ export class AuthService {
 
 
   logout() {
-    const myConfirm = confirm('确定退出登录？')
-    if (myConfirm) {
-      localStorage.removeItem('ph-token')
-      this.router.navigate(['/login'])
-    }
+    this.modal.confirm({
+      nzContent: '确定退出登录？',
+      nzOnOk: () => {
+        localStorage.removeItem('ph-token')
+        this.router.navigate(['/login'])
+      }
+    })
   }
 
 

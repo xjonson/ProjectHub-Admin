@@ -9,6 +9,7 @@
         <th>头像&昵称</th>
         <th>邮箱</th>
         <th>手机</th>
+        <th>注册时间</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -17,17 +18,16 @@
         <td>{{data._id}}</td>
         <td>
           <span [ngSwitch]="data.role">
-            <span *ngSwitchCase="1">
+            <!-- <span *ngSwitchCase="1">
               <nz-badge nzStatus="success"></nz-badge>
               管理员
-            </span>
+            </span> -->
             <span *ngSwitchCase="2">
               <nz-badge nzStatus="warning"></nz-badge>
               需求者
             </span>
             <span *ngSwitchCase="3">
-              <nz-badge nzStatus="default"
-                [nzStyle]="{'background-color':'#1890ff'}"></nz-badge>
+              <nz-badge nzStatus="success"></nz-badge>
               开发者
             </span>
           </span>
@@ -39,17 +39,18 @@
         </td>
         <td>{{data.email}}</td>
         <td>{{data.profile.phone}}</td>
+        <td>{{data.create_time | date: 'yyyy-MM-dd hh:mm'}}</td>
         <td>
-          <span *ngIf="data.role !== 1">
+          <span>
             <a (click)="showModal(data)">详细信息</a>
             <nz-divider nzType="vertical"></nz-divider>
 
             <span [ngSwitch]="data.audit">
               <span *ngSwitchCase="1">
-                <a>审核通过</a>
+                <span>审核已通过</span>
               </span>
               <span *ngSwitchCase="2">
-                <a href="">审核不通过</a>
+                <span>审核不通过</span>
               </span>
               <nz-dropdown *ngSwitchDefault>
                 <a nz-dropdown>
@@ -73,22 +74,27 @@
 </nz-card>
 
 
-<!-- model -->
+<!-- model 1 -->
 <nz-modal [(nzVisible)]="modal1"
   (nzOnCancel)="modal1 = false"
   (nzOnOk)="modal1 = false">
-  <div *ngIf="userDetail">
+  <div *ngIf="userDetail"
+    class="d-flex align-item-top justify-space-between">
     <nz-avatar nzIcon="user"
-      nzSrc="{{userDetail.profile.avatar}}"></nz-avatar>
-    <h3>昵称</h3>
-    <p>{{userDetail.profile.name}}</p>
-    <h3>ID</h3>
-    <p>{{userDetail._id}}</p>
-    <h3>邮箱</h3>
-    <p>{{userDetail.email}}</p>
-    <h3>电话</h3>
-    <p>{{userDetail.profile.phone}}</p>
-    <h3>简介</h3>
-    <p>{{userDetail.profile.desc}}</p>
+      nzSrc="{{userDetail.profile.avatar}}"
+      [nzSize]="72"
+      [nzShape]="'square'"></nz-avatar>
+    <div class="ml-3">
+      <h3>昵称</h3>
+      <p>{{userDetail.profile.name}}</p>
+      <h3>ID</h3>
+      <p>{{userDetail._id}}</p>
+      <h3>邮箱</h3>
+      <p>{{userDetail.email}}</p>
+      <h3>电话</h3>
+      <p>{{userDetail.profile.phone}}</p>
+      <h3>简介</h3>
+      <p>{{userDetail.profile.desc}}</p>
+    </div>
   </div>
 </nz-modal>

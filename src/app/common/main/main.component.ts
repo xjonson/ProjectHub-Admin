@@ -19,13 +19,18 @@ export class MainComponent implements OnInit {
       router: 'dashboard',
     },
     {
-      icon: 'user',
+      icon: 'team',
       title: '用户管理',
       sub: [
         {
           icon: 'user',
           title: '用户列表',
           router: 'user',
+        },
+        {
+          icon: 'usergroup-add',
+          title: '管理员管理',
+          router: 'reg-admin',
         },
       ]
     },

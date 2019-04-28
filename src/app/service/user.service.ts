@@ -17,6 +17,11 @@ export class UserService {
     private nzMessage: NzMessageService,
   ) { }
 
+  // 用户注册
+  register(user: Partial<User>): Observable<any> {
+    return this.http.post('/api/user/register', user)
+  }
+
   // 用户登录
   login(user: Partial<User>): Observable<any> {
     return this.http.post('/api/user/login', user).pipe(
@@ -38,7 +43,7 @@ export class UserService {
   getUsers() {
     return this.http.get(`/api/user`).pipe(
       tap((resTpl: ResTpl) => {
-        
+
       })
     )
   }
@@ -77,6 +82,13 @@ export class UserService {
       newPwd
     }
     return this.http.patch(`api/user/password/${'updatePassword'}`, data).pipe(
+
+    )
+  }
+
+  // 删除用户
+  deleteUser(uid): Observable<any> {
+    return this.http.delete(`/api/user/${uid}`).pipe(
       tap(
         (resTpl: ResTpl) => {
           this.nzMessage.create('info', resTpl.msg);

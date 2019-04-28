@@ -29,6 +29,7 @@ import { AuthInterceptor } from './service/AuthInterceptor';
 import { MsgService } from './service/msg.service';
 import { DateService } from './service/date.service';
 import { ProjectStepComponent } from './components/project-step/project-step.component';
+import { RegAdminComponent } from './components/reg-admin/reg-admin.component';
 
 
 
@@ -44,7 +45,7 @@ registerLocaleData(zh);
     DashboardComponent,
     ProjectStatusTextPipe,
     ProjectStatusPipe,
-    ProjectColorPipe, MainComponent, ProjectStepComponent,
+    ProjectColorPipe, MainComponent, ProjectStepComponent, RegAdminComponent,
   ],
   imports: [
     BrowserModule,

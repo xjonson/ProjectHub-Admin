@@ -8,6 +8,7 @@ import { DashboardComponent } from '../components/dashboard/dashboard.component'
 import { MainComponent } from '../common/main/main.component';
 import { AuthGuard } from '../service/auth.service';
 import { ProjectStepComponent } from '../components/project-step/project-step.component';
+import { RegAdminComponent } from '../components/reg-admin/reg-admin.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'project', component: ProjectComponent },
       { path: 'skill', component: SkillComponent },
       { path: 'project-step', component: ProjectStepComponent },
+      { path: 'reg-admin', component: RegAdminComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },

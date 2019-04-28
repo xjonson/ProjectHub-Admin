@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     const formData = this.validateForm.value
-    if (formData.email != 'admin@ph.com') {
-      this.nzMessage.create('warn', `账号密码错误`);
-      return
-    }
+    // if (formData.email != 'admin@ph.com') {
+    //   this.nzMessage.create('warn', `账号密码错误`);
+    //   return
+    // }
     this.userSrv.login(formData).subscribe((resTpl: ResTpl) => {
       if (resTpl.code === 0) {
         const user = resTpl.data

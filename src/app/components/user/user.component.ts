@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   handleGetUsers() {
     this.userSrv.getUsers().subscribe(
       (res: ResTpl) => {
-        this.userTable = res.data
+        this.userTable = res.data.filter(item => item.role != 1)
       }
     )
   }

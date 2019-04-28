@@ -1,0 +1,159 @@
+<nz-card [nzBordered]="false">
+  <nz-row class="mb-4">
+    <button nz-button
+      (click)="modal2 = true; initForm()">添加管理员</button>
+  </nz-row>
+  <nz-table #table
+    [nzData]="userTable"
+    [nzPageSize]="20">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>身份</th>
+        <th>头像&昵称</th>
+        <th>邮箱</th>
+        <th>手机</th>
+        <th>注册时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of table.data">
+        <td>{{data._id}}</td>
+        <td>
+          <span [ngSwitch]="data.role">
+            <span *ngSwitchCase="1">
+              <nz-badge nzStatus="success"></nz-badge>
+              管理员
+            </span>
+            <span *ngSwitchCase="2">
+              <nz-badge nzStatus="warning"></nz-badge>
+              需求者
+            </span>
+            <span *ngSwitchCase="3">
+              <nz-badge nzStatus="default"
+                [nzStyle]="{'background-color':'#1890ff'}"></nz-badge>
+              开发者
+            </span>
+          </span>
+        </td>
+        <td>
+          <nz-avatar nzIcon="user"
+            nzSrc="{{data.profile.avatar}}"></nz-avatar>
+          {{data.profile.name}}
+        </td>
+        <td>{{data.email}}</td>
+        <td>{{data.profile.phone}}</td>
+        <td>{{data.create_time | date: 'yyyy-MM-dd hh:mm'}}</td>
+        <td>
+          <span>
+            <a (click)="showModal(data)">详细信息</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a *ngIf="data.email != 'admin@ph.com'" (click)="handleDeleteUser(data)">移除管理员</a>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+
+<!-- model 1 -->
+<nz-modal [(nzVisible)]="modal1"
+  (nzOnCancel)="modal1 = false"
+  (nzOnOk)="modal1 = false">
+  <div *ngIf="userDetail"
+    class="d-flex align-item-top justify-space-between">
+    <nz-avatar nzIcon="user"
+      nzSrc="{{userDetail.profile.avatar}}"
+      [nzSize]="72"
+      [nzShape]="'square'"></nz-avatar>
+    <div class="ml-3">
+      <h3>昵称</h3>
+      <p>{{userDetail.profile.name}}</p>
+      <h3>ID</h3>
+      <p>{{userDetail._id}}</p>
+      <h3>邮箱</h3>
+      <p>{{userDetail.email}}</p>
+      <h3>电话</h3>
+      <p>{{userDetail.profile.phone}}</p>
+      <h3>简介</h3>
+      <p>{{userDetail.profile.desc}}</p>
+    </div>
+  </div>
+</nz-modal>
+
+<!-- model 2 -->
+<nz-modal [(nzVisible)]="modal2"
+  (nzOnCancel)="modal2 = false"
+  (nzOnOk)="addAdmin()">
+  <div>
+    <h2>填写信息</h2>
+    <form nz-form
+      [formGroup]="addAdminForm">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6"
+          [nzXs]="24"
+          nzRequired
+          nzFor="email">邮箱</nz-form-label>
+        <nz-form-control [nzSm]="14"
+          [nzXs]="24">
+          <input nz-input
+            autocomplete="false"
+            formControlName="email" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6"
+          [nzXs]="24"
+          nzRequired
+          nzFor="password">密码</nz-form-label>
+        <nz-form-control [nzSm]="14"
+          [nzXs]="24">
+          <input nz-input
+            type="password"
+            autocomplete="false"
+            formControlName="password" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6"
+          [nzXs]="24"
+          nzRequired
+          nzFor="password2">确认密码</nz-form-label>
+        <nz-form-control [nzSm]="14"
+          [nzXs]="24">
+          <input nz-input
+            type="password"
+            autocomplete="false"
+            formControlName="password2" />
+        </nz-form-control>
+      </nz-form-item>
+      <form nz-form
+        formGroupName="profile">
+        <nz-form-item>
+          <nz-form-label [nzSm]="6"
+            [nzXs]="24"
+            nzRequired
+            nzFor="name">昵称</nz-form-label>
+          <nz-form-control [nzSm]="14"
+            [nzXs]="24">
+            <input nz-input
+              formControlName="name" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6"
+            [nzXs]="24"
+            nzRequired
+            nzFor="phone">手机号</nz-form-label>
+          <nz-form-control [nzSm]="14"
+            [nzXs]="24">
+            <input nz-input
+              formControlName="phone" />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </form>
+  </div>
+</nz-modal>
