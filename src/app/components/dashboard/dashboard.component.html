@@ -1,139 +1,141 @@
-<div nz-row
-  nzGutter="16">
-  <div nz-col
-    nzSpan="8">
-    <!-- 页面访问量 -->
-    <nz-card [nzBordered]="false">
-      <span>页面访问量</span>
-      <h1>{{count.pageAll | number}}</h1>
-      <div>
-        <v-chart [forceFit]="chart1.forceFit"
-          [height]="chart1.height"
-          [width]="chart1.width"
-          [scale]="chart1.scale"
-          [padding]="chart1.padding"
-          [data]="pageData">
-          <v-tooltip></v-tooltip>
-          <v-smooth-area position="date*value"
-            color="#965fe4"></v-smooth-area>
-        </v-chart>
-      </div>
-      <nz-divider></nz-divider>
-      <span>今日访问量 {{count.pageToday | number}} </span>
-    </nz-card>
+<div *ngIf="userData.length && pageData.length && projectData.length">
+  <div nz-row
+    nzGutter="16">
+    <div nz-col
+      nzSpan="8">
+      <!-- 页面访问量 -->
+      <nz-card [nzBordered]="false">
+        <span>页面访问量</span>
+        <h1>{{count.pageAll | number}}</h1>
+        <div>
+          <v-chart [forceFit]="chart1.forceFit"
+            [height]="86"
+            [width]="chart1.width"
+            [scale]="chart1.scale"
+            [padding]="chart1.padding"
+            [data]="pageData">
+            <v-tooltip></v-tooltip>
+            <v-smooth-area position="date*value"
+              color="#965fe4"></v-smooth-area>
+          </v-chart>
+        </div>
+        <nz-divider></nz-divider>
+        <span>今日访问量 {{count.pageToday | number}} </span>
+      </nz-card>
+    </div>
+    <!-- 用户数量 -->
+    <div nz-col
+      nzSpan="8">
+      <nz-card [nzBordered]="false">
+        <span>用户数量</span>
+        <h1>{{count.userAll | number}}</h1>
+        <div class="mt-2">
+          <i nz-icon
+            type="caret-up"
+            theme="outline"
+            class="font-red"></i>
+          今日新注册用户{{count.userToday | number}}人
+        </div>
+        <nz-divider></nz-divider>
+        <span>需求者：{{count.demandUser | number}}
+          <br>开发者：{{count.devUser | number}}</span>
+      </nz-card>
+    </div>
+    <!-- 项目数量 -->
+    <div nz-col
+      nzSpan="8">
+      <nz-card [nzBordered]="false">
+        <span>项目数量</span>
+        <h1>{{count.projectAll | number}}</h1>
+        <div>
+          <v-chart [forceFit]="chart1.forceFit"
+            [height]="46"
+            [width]="chart1.width"
+            [scale]="chart1.scale"
+            [padding]="chart1.padding"
+            [data]="projectData">
+            <v-tooltip></v-tooltip>
+            <v-bar position="date*value"></v-bar>
+          </v-chart>
+        </div>
+        <nz-divider></nz-divider>
+        <span>今日新增项目 {{count.projectToday | number}}</span>
+      </nz-card>
+    </div>
   </div>
-  <!-- 用户数量 -->
-  <div nz-col
-    nzSpan="8">
-    <nz-card [nzBordered]="false">
-      <span>用户数量</span>
-      <h1>{{count.userAll | number}}</h1>
-      <div class="mt-2">
-        <i nz-icon
-          type="caret-up"
-          theme="outline"
-          class="font-red"></i>
-        今日新注册用户{{count.userToday | number}}人
-      </div>
-      <nz-divider></nz-divider>
-      <span>需求者：{{count.demandUser | number}}
-        <br>开发者：{{count.devUser | number}}</span>
-    </nz-card>
-  </div>
-  <!-- 项目数量 -->
-  <div nz-col
-    nzSpan="8">
-    <nz-card [nzBordered]="false">
-      <span>项目数量</span>
-      <h1>{{count.projectAll | number}}</h1>
-      <div>
-        <v-chart [forceFit]="chart1.forceFit"
-          [height]="chart1.height"
-          [width]="chart1.width"
-          [scale]="chart1.scale"
-          [padding]="chart1.padding"
-          [data]="projectData">
-          <v-tooltip></v-tooltip>
-          <v-bar position="date*value"></v-bar>
-        </v-chart>
-      </div>
-      <nz-divider></nz-divider>
-      <span>今日新增项目 {{count.projectToday | number}}</span>
-    </nz-card>
-  </div>
-</div>
 
-<div nz-row
-  nzGutter="16"
-  class="mt-3">
-  <div nz-col
-    nzSpan="12">
-    <nz-card [nzBordered]="false">
-      <nz-tabset [nzSelectedIndex]="tabAct"
-        (nzSelectChange)="tabChange($event)">
-        <nz-tab nzTitle="页面访问量">
-          <div class="tab-con">
-            <v-chart *ngIf="tabAct == 0"
-              [forceFit]="chart1.forceFit"
-              [height]="300"
-              [data]="pageData"
-              [padding]="40"
-              [scale]="chart1.scale">
-              <v-tooltip></v-tooltip>
-              <v-axis></v-axis>
-              <v-smooth-area position="date*value"
-                color="rgb(47, 194, 91)"></v-smooth-area>
-            </v-chart>
-          </div>
-        </nz-tab>
-        <nz-tab nzTitle="用户数量">
-          <div class="tab-con">
-            <v-chart *ngIf="tabAct == 1"
-              [forceFit]="chart1.forceFit"
-              [height]="300"
-              [scale]="chart1.scaleWithText"
-              [padding]="40"
-              [data]="userData">
-              <v-tooltip></v-tooltip>
-              <v-axis></v-axis>
-              <v-bar position="date*value"></v-bar>
-            </v-chart>
-          </div>
-        </nz-tab>
-        <nz-tab nzTitle="项目数量">
-          <div class="tab-con">
-            <v-chart *ngIf="tabAct == 2"
-              [forceFit]="chart1.forceFit"
-              [height]="300"
-              [scale]="chart1.scaleWithText"
-              [padding]="40"
-              [data]="projectData">
-              <v-tooltip></v-tooltip>
-              <v-axis></v-axis>
-              <v-bar position="date*value"></v-bar>
-            </v-chart>
-          </div>
-        </nz-tab>
-      </nz-tabset>
-    </nz-card>
-  </div>
-  <div nz-col
-    nzSpan="12">
-    <nz-card [nzBordered]="false">
-      <h2>项目流程</h2>
-      <nz-steps [nzCurrent]="3"
-        nzDirection="vertical"
-        nzSize="small"
-        nzProgressDot>
-        <nz-step nzTitle="新发布项目"
-          nzDescription="项目已发布，后台人员已审核通过，还没有开发人员接单"></nz-step>
-        <nz-step nzTitle="项目开发中"
-          nzDescription="已有开发人员对接，需求者已通过申请，项目开发中"></nz-step>
-        <nz-step nzTitle="项目验收中"
-          nzDescription="开发人员开发已完成，项目验收中"></nz-step>
-        <nz-step nzTitle="项目已结款"
-          nzDescription="验收符合标准，源码已交付，项目完成"></nz-step>
-      </nz-steps>
-    </nz-card>
+  <div nz-row
+    nzGutter="16"
+    class="mt-3">
+    <div nz-col
+      nzSpan="12">
+      <nz-card [nzBordered]="false">
+        <nz-tabset [nzSelectedIndex]="tabAct"
+          (nzSelectChange)="tabChange($event)">
+          <nz-tab nzTitle="页面访问量">
+            <div class="tab-con">
+              <v-chart *ngIf="tabAct == 0"
+                [forceFit]="chart1.forceFit"
+                [height]="300"
+                [data]="pageData"
+                [padding]="40"
+                [scale]="chart1.scale">
+                <v-tooltip></v-tooltip>
+                <v-axis></v-axis>
+                <v-smooth-area position="date*value"
+                  color="rgb(47, 194, 91)"></v-smooth-area>
+              </v-chart>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle="用户数量">
+            <div class="tab-con">
+              <v-chart *ngIf="tabAct == 1"
+                [forceFit]="chart1.forceFit"
+                [height]="300"
+                [scale]="chart1.scaleWithText"
+                [padding]="40"
+                [data]="userData">
+                <v-tooltip></v-tooltip>
+                <v-axis></v-axis>
+                <v-bar position="date*value"></v-bar>
+              </v-chart>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle="项目数量">
+            <div class="tab-con">
+              <v-chart *ngIf="tabAct == 2"
+                [forceFit]="chart1.forceFit"
+                [height]="300"
+                [scale]="chart1.scaleWithText"
+                [padding]="40"
+                [data]="projectData">
+                <v-tooltip></v-tooltip>
+                <v-axis></v-axis>
+                <v-bar position="date*value"></v-bar>
+              </v-chart>
+            </div>
+          </nz-tab>
+        </nz-tabset>
+      </nz-card>
+    </div>
+    <div nz-col
+      nzSpan="12">
+      <nz-card [nzBordered]="false">
+        <h2>项目流程</h2>
+        <nz-steps [nzCurrent]="3"
+          nzDirection="vertical"
+          nzSize="small"
+          nzProgressDot>
+          <nz-step nzTitle="新发布项目"
+            nzDescription="项目已发布，后台人员已审核通过，还没有开发人员接单"></nz-step>
+          <nz-step nzTitle="项目开发中"
+            nzDescription="已有开发人员对接，需求者已通过申请，项目开发中"></nz-step>
+          <nz-step nzTitle="项目验收中"
+            nzDescription="开发人员开发已完成，项目验收中"></nz-step>
+          <nz-step nzTitle="项目已结款"
+            nzDescription="验收符合标准，源码已交付，项目完成"></nz-step>
+        </nz-steps>
+      </nz-card>
+    </div>
   </div>
 </div>

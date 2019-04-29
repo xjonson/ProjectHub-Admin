@@ -49,7 +49,31 @@ server端api请[移步这里](https://github.com/xjonson/ProjectHub-BackEnd)
 
 ## 展示
 
+登录
+<br>
 ![login](./screenshots/login.png)
+<br>
+仪表盘
+<br>
 ![dashboard](./screenshots/dashboard.png)
+<br>
+用户列表
+<br>
 ![user](./screenshots/user.png)
+<br>
+管理员列表
+<br>
+![admins](./screenshots/admins.png)
+<br>
+项目列表
+<br>
 ![project](./screenshots/project.png)
+<br>
+项目估价元数据
+<br>
+![project_assess](./screenshots/project_assess.png)
+<br>
+技能元数据
+<br>
+![skill](./screenshots/skills.png)
+<br>

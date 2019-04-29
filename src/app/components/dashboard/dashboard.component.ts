@@ -28,7 +28,7 @@ interface DashboardDate {
 export class DashboardComponent implements OnInit {
   chart1 = {
     forceFit: true,
-    height: 46,
+    // height: 86,
     width: 200,
     padding: [0, 6],
     scale: [{
@@ -68,6 +68,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getPageData()
   }
+
   // 获取数据
   getPageData() {
     const now = new Date()
