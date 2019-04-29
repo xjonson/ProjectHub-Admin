@@ -12,9 +12,9 @@ export class ProjectStepService {
   ) { }
 
   getProjectStep(): Observable<any> {
-    return this.http.get('/api/projectStep')
+    return this.http.get('api/projectStep')
   }
   updateProjectStep(_id, newProjectStep): Observable<any> {
-    return this.http.patch(`/api/projectStep/${_id}`, newProjectStep)
+    return this.http.patch(`api/projectStep/${_id}`, newProjectStep)
   }
 }
