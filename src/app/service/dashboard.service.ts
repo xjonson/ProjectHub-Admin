@@ -12,7 +12,7 @@ export class DashboardService {
   ) { }
 
   getDatas() {
-    return this.http.get('api/dashboard')
+    return this.http.get('/api/dashboard')
   }
 
 }

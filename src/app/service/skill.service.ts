@@ -12,14 +12,14 @@ export class SkillService {
   ) { }
 
   getSkills() {
-    return this.http.get('api/skill')
+    return this.http.get('/api/skill')
   }
 
   addSkill(data): Observable<any> {
-    return this.http.post('api/skill', data)
+    return this.http.post('/api/skill', data)
   }
 
   delSkill(data): Observable<any> {
-    return this.http.delete('api/skill/' + data._id)
+    return this.http.delete('/api/skill/' + data._id)
   }
 }

@@ -21,7 +21,7 @@ export class MsgService {
 
   // 获取用户消息
   getMsgs(): Observable<any> {
-    return this.http.get('api/msg').pipe(
+    return this.http.get('/api/msg').pipe(
       tap((res: ResTpl) => {
         this.unReadMsg = res.data.filter(i => !i.checked).length
         this.nzMessage.create('info', res.msg);
@@ -34,7 +34,7 @@ export class MsgService {
     if (data.action && data.action !== undefined) {
       data.isAction = true
     }
-    return this.http.post('api/msg', data)
+    return this.http.post('/api/msg', data)
       .pipe(
         tap((res: ResTpl) => {
           if (data.isAction) {
