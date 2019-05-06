@@ -23,7 +23,7 @@ export class AuthService {
     private modal: NzModalService
   ) {
     // 查看cookie中是否有登录信息
-    if (localStorage.getItem('ph-token')) {
+    if (localStorage.getItem('ph-admin-token')) {
       this.userSrv.getUserInfo().subscribe(
         (user: User) => {
           this.loginState = true
@@ -39,7 +39,7 @@ export class AuthService {
     this.modal.confirm({
       nzContent: '确定退出登录？',
       nzOnOk: () => {
-        localStorage.removeItem('ph-token')
+        localStorage.removeItem('ph-admin-token')
         this.router.navigate(['/login'])
       }
     })
@@ -69,7 +69,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     // 如果已登录，不守卫
-    if (localStorage.getItem('ph-token') || this.authSrv.getAuthState() || this.userSrv.userInfo) return true
+    if (localStorage.getItem('ph-admin-token') || this.authSrv.getAuthState() || this.userSrv.userInfo) return true
     // 分割出params，不然会报错
     const redirectUrl: string = state.url.split('?')[0]
     // 保存进入前的路由

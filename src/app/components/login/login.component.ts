@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         // 是否是管理员
         if (resTpl.data.role != 1) return this.nzMessage.error('非管理员用户不可登录')
         const user = resTpl.data
-        localStorage.setItem('ph-token', user.token)
+        localStorage.setItem('ph-admin-token', user.token)
         this.nzMessage.create('success', `登录成功，${user.profile.name}欢迎您!`);
         // 重定向到授权前的路由
         this.router.navigate([this.authSrv.redirectUrl], {
