@@ -2,5 +2,7 @@
   "/api/*": {
     "target": "http://localhost:4000/",
     "secure": "false"
-  }
+  },
+  "save_target1": "http://project-hub-api.herokuapp.com/",
+  "save_target": "http://localhost:4000/"
 }

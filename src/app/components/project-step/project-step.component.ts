@@ -78,7 +78,6 @@ export class ProjectStepComponent implements OnInit {
       (resTpl: ResTpl) => {
         if (resTpl.code === 0) {
           const data = resTpl.data
-          console.log('data: ', data);
           this.nodes.web = data[0]
           this.nodes.mp = data[1]
           this.nodes.android = data[2]

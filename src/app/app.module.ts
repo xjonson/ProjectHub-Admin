@@ -7,7 +7,7 @@ import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { AppComponent } from './app/app.component';
 
 /** 配置 angular i18n **/
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { AppRoutingModule } from './router/app-routing.module';
 import { LoginComponent } from './components/login/login.component';
@@ -70,7 +70,9 @@ registerLocaleData(zh);
     UploadService,
     MsgService,
     DateService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // 路由hash模式
+    { provide: LocationStrategy, useClass: HashLocationStrategy, }
   ]
 })
 export class AppModule { }
