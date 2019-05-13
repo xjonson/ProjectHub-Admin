@@ -58,10 +58,11 @@ export class ProjectComponent implements OnInit {
     const data = {
       user_id: project.demand_user._id,
       project_id: project._id,
+      project_title: project.title,
       content,
       project_comment_id: 0,
       action: 0,
-      isAction: true,
+      isAction: false,
     }
     this.msgSrv.sendMsg(data).subscribe()
   }

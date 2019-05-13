@@ -63,7 +63,7 @@ export enum StatusText {
  */
 export enum Color {
   'warning' = 0,
-  'success' = 1,
-  'primary' = 2,
+  'processing' = 1,
+  'success' = 2,
   'default' = 3
 }
