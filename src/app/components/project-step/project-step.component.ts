@@ -268,7 +268,7 @@ export class ProjectStepComponent implements OnInit {
             }
           })
         }
-        recursion(this.selectPS.data, null)
+        recursion(this.selectPS.data, this.selectNode)
         this.handleUpdatePS()
       }
     })
