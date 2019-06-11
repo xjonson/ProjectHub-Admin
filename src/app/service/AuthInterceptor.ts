@@ -8,6 +8,8 @@ import { NzMessageService } from 'ng-zorro-antd';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  msgId;
+
   constructor(
     private router: Router,
     private nzMessage: NzMessageService,
@@ -18,13 +20,20 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('ph-admin-token') ? localStorage.getItem('ph-admin-token') : ''
+    // loading
+    this.msgId = this.nzMessage.loading('loading...', { nzDuration: 0 }).messageId;
+
+    const token = localStorage.getItem('ph-admin-token') ? localStorage.getItem('ph-admin-token') : '';
     const clonedRequest = req.clone({
       headers: req.headers.set("Authorization", token)
     });
 
     return next.handle(clonedRequest).pipe(
       mergeMap((event: any) => {
+        // end loading
+        this.nzMessage.remove(this.msgId);
+        this.msgId = null;
+
         // console.log('event: ', event);
         return of(event);
       }),
