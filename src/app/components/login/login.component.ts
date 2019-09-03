@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { User } from 'src/app/models/User';
-import { Router } from '_@angular_router@7.2.9@@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 import { ResTpl } from 'src/app/models/ResTpl';
 

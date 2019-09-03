@@ -1,5 +1,5 @@
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
-import { Router } from '_@angular_router@7.2.9@@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 
